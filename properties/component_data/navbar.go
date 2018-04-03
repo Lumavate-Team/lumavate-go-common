@@ -34,6 +34,17 @@ type NavBarContainerStruct struct {
   NavBarItems NavBarItemsStruct `json: "navBarItems"`
 }
 
+func (m *NavBarContainerStruct) UnmarshalJSON(bytes []byte) error{
+  var tmp NavBarContainerStruct
+
+  if err := json.Unmarshal(bytes, &tmp); err != nil {
+    return nil, err
+  }
+  m.NavBar = tmp.NavBar
+  m.NavBar.ComponentData.NavBarItems = tmp.NavBarItems
+  m.NavBarItems = tmp.NavBarItems
+  return nil
+}
 func (m *NavBarItemsStruct) UnmarshalJSON(bytes []byte) error {
   var tmp []NavBarItemStruct
 

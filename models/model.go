@@ -5,5 +5,8 @@ import (
 )
 
 type CommonWidgetStruct struct {
-    PageType component_data.PageTypeStruct
+  PageType component_data.PageTypeStruct
+  component_data.NavBarContainerStruct
 }
+
+
