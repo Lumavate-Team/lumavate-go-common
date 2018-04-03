@@ -1,12 +1,9 @@
 package models
 
 import (
-  "properties/component_data"
-  "components"
+  "github.com/Lumavate-Team/lumavate-go-common/properties/component_data"
 )
 
-type WidgetStruct struct {
+type CommonWidgetStruct struct {
     PageType component_data.PageTypeStruct
-    BackgroundColor string
-    components.NavBarContainerStruct
 }
