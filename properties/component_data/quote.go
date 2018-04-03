@@ -4,10 +4,6 @@ import (
   "fmt"
 )
 
-type ComponentData interface {
-	GetHtml() string
-}
-
 type QuoteStruct struct {
   ComponentData struct {
     QuoteText string

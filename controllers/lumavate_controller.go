@@ -4,7 +4,7 @@ import (
   "github.com/astaxie/beego"
   "fmt"
   "os"
-  "api_core"
+  "github.com/Lumavate-Team/lumavate-go-common/api_core"
 )
 
 type LumavateController struct {
@@ -22,17 +22,17 @@ func (this *LumavateController) LumavateInit() {
 }
 
 func (this *LumavateController) LumavateGet(url string) ([]byte, string) {
-  lr := LumavateRequest{this.Ctx.GetCookie("pwa_jwt")}
+  lr := api_core.LumavateRequest{this.Ctx.GetCookie("pwa_jwt")}
   return lr.Get(url)
 }
 
 func (this *LumavateController) LumavatePost(url string, payload []byte) ([]byte, string) {
-  lr := LumavateRequest{this.Ctx.GetCookie("pwa_jwt")}
+  lr := api_core.LumavateRequest{this.Ctx.GetCookie("pwa_jwt")}
   return lr.Post(url, payload)
 }
 
 func (this *LumavateController) LumavatePut(url string, payload []byte) ([]byte, string) {
-  lr := LumavateRequest{this.Ctx.GetCookie("pwa_jwt")}
+  lr := api_core.LumavateRequest{this.Ctx.GetCookie("pwa_jwt")}
   return lr.Put(url, payload)
 }
 

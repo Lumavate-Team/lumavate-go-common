@@ -1,6 +1,5 @@
 package api_core
 
-
 import (
     "crypto/md5"
     "crypto/hmac"
