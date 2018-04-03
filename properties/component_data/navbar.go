@@ -34,6 +34,7 @@ type NavBarContainerStruct struct {
   NavBarItems NavBarItemsStruct `json: "navBarItems"`
 }
 
+/* not being used yet due to go lang only unmarshalling from outer layer */
 func (m *NavBarContainerStruct) UnmarshalJSON(bytes []byte) error{
   var tmp NavBarContainerStruct
 
