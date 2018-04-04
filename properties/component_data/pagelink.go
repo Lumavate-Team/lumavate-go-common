@@ -1,5 +1,5 @@
 package component_data
 
 type PageLinkStruct struct {
-  Url string
+  Url string `json:"url"`
 }
