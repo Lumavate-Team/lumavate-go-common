@@ -3,6 +3,7 @@ package component_data
 import (
   "fmt"
   "encoding/json"
+  "html/template"
 )
 
 type NavBarItemStruct struct {
@@ -70,6 +71,10 @@ func (m *NavBarItemStruct) MarshalJSON() ([]byte, error) {
 }
 
 func (this NavBarStruct) GetHtml() string {
+  if !this.ComponentData.ShowNavBar{
+    return ""
+  }
+
   nav := `<lumavate-nav-bar
       nav-bar-background-color='%v'
       nav-bar-item-color='%v'
@@ -88,5 +93,5 @@ func (this NavBarStruct) GetHtml() string {
       this.ComponentData.ItemColor, 
       this.ComponentData.Position,
       this.ComponentData.ShowNavBar,
-      string(items))
+      template.HTMLEscapeString(string(items)))
 }
