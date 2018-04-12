@@ -5,7 +5,8 @@ import (
 )
 
 type CommonWidgetStruct struct {
-  PageType component_data.PageTypeStruct
+  InstanceName string `json:"instance__name"`
+  PageType component_data.PageTypeStruct `json:"pageType"`
   component_data.NavBarContainerStruct
 }
 
