@@ -11,3 +11,13 @@ type CommonWidgetStruct struct {
 }
 
 
+type ValidatePhoneResponse struct {
+  Payload struct {
+    Data struct {
+      CountryCode string `json:"countryCode"`
+      FormattedPhone string `json:"formattedPhone"`
+      PhoneNumber string `json:"phoneNumber"`
+    } `json:"data"`
+  } `json:"payload"`
+}
+
