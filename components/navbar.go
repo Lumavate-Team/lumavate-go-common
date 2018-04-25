@@ -29,7 +29,7 @@ func GetNavBarItemsProperty() *properties.PropertyComponents {
  */
 func GetNavBarComponent() *properties.Component {
   //return properties.LoadComponent(os.Getenv("BASE_URL"), "1.0.0", "quote")
-        comp := properties.LoadComponent("https://experience.john.labelnexusdev.com", "1.0.0", "navBar")
+        comp := properties.LoadComponent("https://experience.lumavate.com", "1.0.0", "navBar")
         comp.Category = "navBar"
         return comp
 }
@@ -39,7 +39,7 @@ func GetNavBarComponent() *properties.Component {
  */
 func GetNavBarItemComponent() *properties.Component {
   //return properties.LoadComponent(os.Getenv("BASE_URL"), "1.0.0", "quote")
-        comp :=properties.LoadComponent("https://experience.john.labelnexusdev.com", "1.0.0", "navBarItem")
+        comp :=properties.LoadComponent("https://experience.lumavate.com", "1.0.0", "navBarItem")
         comp.Category = "navBarItem"
         return comp
 }
