@@ -30,7 +30,7 @@ func (this *LumavateRequest) Put(url string, payload []byte) ([]byte, string) {
 	return this.Request("PUT", url, payload)
 }
 
-func (this *LumavateRequest) Delete(url string, payload []byte), ([]byte, strig){
+func (this *LumavateRequest) Delete(url string, payload []byte) ([]byte, string){
   return this.Request("DELETE", url, payload)
 }
 
