@@ -30,6 +30,10 @@ func (this *LumavateRequest) Put(url string, payload []byte) ([]byte, string) {
 	return this.Request("PUT", url, payload)
 }
 
+func (this *LumavateRequest) Delete(url string, payload []byte), ([]byte, strig){
+  return this.Request("DELETE", url, payload)
+}
+
 func (this *LumavateRequest) Request(method string, url string, payload []byte) ([]byte, string) {
   s := Signer{}
   signed_widget_data_url := fmt.Sprintf("%s%s",

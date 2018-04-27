@@ -36,6 +36,11 @@ func (this *LumavateController) LumavatePut(url string, payload []byte) ([]byte,
   return lr.Put(url, payload)
 }
 
+func (this *LumavateController) LumavateDelete(url string, payload []byte) ([]byte, string) {
+  lr := api_core.LumavateRequest{this.Ctx.GetCookie("pwa_jwt")}
+  return lr.Delete(url, payload)
+}
+
 func (this *LumavateController) LumavateGetData() []byte {
   this.LumavateInit()
   data, status := this.LumavateGet(this.GetWidgetDataUrl())
