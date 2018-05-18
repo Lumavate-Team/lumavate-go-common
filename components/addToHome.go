@@ -21,7 +21,7 @@ func GetAddToHomeProperties() [] properties.PropertyType {
       &properties.PropertyBase{"lifespan", "Add To Home Screen", "Numeric Options", "Lifespan", "Life of the message in seconds"}, 0, properties.PropertyOptionsNumeric{ Min: 0, Max: 32}})
 
   props = append(props, &properties.PropertyNumeric{
-      &properties.PropertyBase{"displayCount", "Add To Home Screen", "Numeric Options", "Display Count", "Maximum number of times the message will be shown to the user (0: no limit)"}, 0, properties.PropertyOptionsNumeric{ Min: 0, Max: 32}})
+      &properties.PropertyBase{"displayCount", "Add To Home Screen", "Numeric Options", "Display Count", "Message will display once per day until end user adds to home screen. Display Count represents the number of days the message will be shown. (0: no limit)"}, 0, properties.PropertyOptionsNumeric{ Min: 0, Max: 32}})
 
   props = append(props, &properties.PropertyText{
     	&properties.PropertyBase{"message", "Add To Home Screen", "Prompt Message", "Message", "Message to be displayed on prompt."},
