@@ -4,22 +4,6 @@ import (
   "github.com/Lumavate-Team/lumavate-go-common/properties"
 )
 
-func GetFormProperty() *properties.PropertyComponent {
-  return &properties.PropertyComponent{
-    &properties.PropertyBase{"forms", "Form", "", "", ""},
-    GetFormComponent(), properties.PropertyOptionsComponent{[] string {"forms"}, [] *properties.Component {GetFormComponent()} },
-  }
-}
-
-func GetFormComponent() *properties.Component {
-	props := [] properties.PropertyType {}
-  	props = append(props, &properties.PropertyToggle{
-	    &properties.PropertyBase{"formRequired", "", "", "Show Form", ""},
-	    true})
-
-  	return &properties.Component{"forms", "", "forms", "Form", "x", "Form", props}
-}
-
 func GetFormItemsProperty() *properties.PropertyComponents {
   return &properties.PropertyComponents {
     &properties.PropertyBase{"formItems", "Form", "Field Types", "Field Types", ""},
