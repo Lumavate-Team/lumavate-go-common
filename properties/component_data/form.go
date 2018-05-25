@@ -7,79 +7,108 @@ import (
   _"html/template"
 )
 
-type FormItemsStruct struct {
+type FormItemStruct struct {
 	ComponentData struct {
-		Forms []ComponentData
+		Item ComponentData
 	}
 }
 
 type FormStruct struct {
-	FormItems FormItemsStruct
-}
-
-type FormContainerStruct struct {
-	Form FormStruct
-	FormItems FormItemsStruct
+	FormItems []FormItemStruct
 }
 
 type FormTextStruct struct {
-	TextLabel string `json:"textLabel"`
-	TextFieldName string `json:"textFieldName"`
-	TextRegExpression string `json:"textRegExpression"`
-	TextRequired bool `json:"textRequired"`
-	TextMaxLength int `json:"textMaxLength"`
-	TextErrorText string `json:"textErrorText"`
-	TextInputType string `json:"textInputType"`
+	ComponentData struct {
+		TextLabel string `json:"textLabel"`
+		TextFieldName string `json:"textFieldName"`
+		TextRegExpression string `json:"textRegExpression"`
+		TextRequired bool `json:"textRequired"`
+		TextMaxLength int `json:"textMaxLength"`
+		TextErrorText string `json:"textErrorText"`
+		TextInputType string `json:"textInputType"`
+	}
 }
 
 type DateStruct struct {
-	DateLabel string `json:"dateLabel"`
-	DateFieldName string `json:"dateFieldName"`
-	DateRequired bool `json:"dateRequired"`
+	ComponentData struct {
+		DateLabel string `json:"dateLabel"`
+		DateFieldName string `json:"dateFieldName"`
+		DateRequired bool `json:"dateRequired"`
+	}
 }
 
 type DropDownStruct struct {
-	DropDownLabel string `json:"dropDownLabel"`
-	DropDownFieldName string `json:"dropDownFieldName"`
-	DropDownRequired bool `json:"dropDownRequired"`
-	DropDownItems string //not really sure about this
+	ComponentData struct {
+		DropDownLabel string `json:"dropDownLabel"`
+		DropDownFieldName string `json:"dropDownFieldName"`
+		DropDownRequired bool `json:"dropDownRequired"`
+		DropDownItems string //not really sure about this
+	}
 }
 
 type CheckboxStruct struct {
-	CheckboxLabel string `json:"checkboxLabel"`
-	CheckboxFieldName string `json:"checkboxFieldName"`
+	ComponentData struct {
+		CheckboxLabel string `json:"checkboxLabel"`
+		CheckboxFieldName string `json:"checkboxFieldName"`
+	}
 }
 
 type AddressStruct struct {
-	AddressLabel string `json:"addressLabel"`
-	AddresFieldName string `json:"addressFieldName"`
-	AddressRequired bool `json:"addressRequired"`
+	ComponentData struct {
+		AddressLabel string `json:"addressLabel"`
+		AddresFieldName string `json:"addressFieldName"`
+		AddressRequired bool `json:"addressRequired"`
+	}
 }
 
 type EmailStruct struct {
-	EmailLabel string `json:"emailLabel"`
-	EmailFieldName string `json:"emailFieldName"`
-	EmailRequired bool `json:"emailRequired"`
+	ComponentData struct {
+		EmailLabel string `json:"emailLabel"`
+		EmailFieldName string `json:"emailFieldName"`
+		EmailRequired bool `json:"emailRequired"`
+	}
 }
 
 type HiddenStruct struct {
-	HiddenLabel string `json:"hiddenLabel"`
-	HiddenFieldName string `json:"hiddenFieldName"`
+	ComponentData struct {
+		HiddenLabel string `json:"hiddenLabel"`
+		HiddenFieldName string `json:"hiddenFieldName"`
+	}
+}
+
+func (this FormStruct) GetHtml() string {
+	var html string
+
+	for _, element := range this.FormItems {
+		html = html + fmt.Sprintf(`
+			<div class="nav-item nav-tile">
+				%v
+			</div>`,
+			element.ComponentData.Item.GetHtml())
+	}
+
+	return fmt.Sprintf(`
+		<form action="">
+			%v
+		</form>`,
+		html)
 }
 
 func (this FormTextStruct) GetHtml() string {
+	var required = ""
+	if this.ComponentData.TextRequired == true {
+		required = "required"
+	}
 	return fmt.Sprintf(`
 		<div>
-			<input class="pure-input-1" aria-label="%v" id="%v" name="%v" type="%v" placeholder="%v" 
-			{{if .TextRequired}}
-				required
-			{{end}}>
+			<input class="pure-input-1" aria-label="%v" id="%v" name="%v" type="%v" placeholder="%v" %v />
 		</div>`,
-		this.TextLabel,
-		this.TextFieldName,
-		this.TextFieldName,
-		this.TextInputType,
-		this.TextLabel)
+		this.ComponentData.TextLabel,
+		this.ComponentData.TextFieldName,
+		this.ComponentData.TextFieldName,
+		this.ComponentData.TextInputType,
+		this.ComponentData.TextLabel,
+		required)
 }
 
 func (this DateStruct) GetHtml() string {
@@ -87,9 +116,9 @@ func (this DateStruct) GetHtml() string {
 		<div>
 			<input aria-label="%v" id="%v" name="%v" type="date">
 		</div>`,
-		this.DateLabel,
-		this.DateFieldName,
-		this.DateFieldName)
+		this.ComponentData.DateLabel,
+		this.ComponentData.DateFieldName,
+		this.ComponentData.DateFieldName)
 }
 
 func (this DropDownStruct) GetHtml() string {
@@ -101,9 +130,9 @@ func (this DropDownStruct) GetHtml() string {
 				{{end}}
 			</select>
 		</div>`,
-		this.DropDownFieldName,
-		this.DropDownFieldName,
-		this.DropDownLabel)
+		this.ComponentData.DropDownFieldName,
+		this.ComponentData.DropDownFieldName,
+		this.ComponentData.DropDownLabel)
 }
 
 func (this CheckboxStruct) GetHtml() string {
@@ -111,9 +140,9 @@ func (this CheckboxStruct) GetHtml() string {
 		<div>
 			<input type="checkbox" name="%v" value="%v">%v
 		</div>`,
-		this.CheckboxFieldName,
-		this.CheckboxFieldName,
-		this.CheckboxLabel)
+		this.ComponentData.CheckboxFieldName,
+		this.ComponentData.CheckboxFieldName,
+		this.ComponentData.CheckboxLabel)
 }
 
 func (this AddressStruct) GetHtml() string {
@@ -127,7 +156,7 @@ func (this EmailStruct) GetHtml() string {
 		<div>
 			<input type="email" name="%v">
 		</div>`,
-		this.EmailFieldName)
+		this.ComponentData.EmailFieldName)
 }
 
 func (this HiddenStruct) GetHtml() string {
@@ -136,13 +165,7 @@ func (this HiddenStruct) GetHtml() string {
 		`)
 }
 
-func (lc *FormStruct) UnmarshalJSON(data []byte) error {
-	fmt.Println("IN UNMARSHAL")
-	//Extract LayoutProperties from underlying Component
-	// var tmp tmpLayoutStruct
-	// if err := json.Unmarshal(data, &tmp); err != nil {
-	// 	return err
-	// }
+func (fs *FormItemStruct) UnmarshalJSON(data []byte) error {
 	// Instantiate proper Component
 	component, err := UnmarshalCustomValue(data, "componentType", "componentData",
 		map[string]reflect.Type{
@@ -158,14 +181,12 @@ func (lc *FormStruct) UnmarshalJSON(data []byte) error {
 		return err
 	}
 
-	// lc.Item = component
-	fmt.Println(component)
+	fs.ComponentData.Item = component
 
 	return nil
 }
 
 func UnmarshalCustomValue(data []byte, typeField, resultField string, customTypes map[string]reflect.Type) (ComponentData, error) {
-	fmt.Println("IN CUSTOM UNMARSHAL")
 	m := map[string]interface{}{}
 	if err := json.Unmarshal(data, &m); err != nil {
 		return nil, err
