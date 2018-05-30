@@ -14,6 +14,7 @@ type LumavateController struct {
 
 func (this *LumavateController) LumavateInit() {
 	this.Data["WidgetUrlPrefix"] = os.Getenv("WIDGET_URL_PREFIX")
+  this.Data["CacheKey"] = os.Getenv("PUBLIC_KEY")
 
   this.LayoutSections = make(map[string]string)
   this.LayoutSections["HtmlHead"] = ""

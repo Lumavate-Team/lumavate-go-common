@@ -8,6 +8,7 @@ type CommonWidgetStruct struct {
   InstanceName string `json:"instance__name"`
   PageType component_data.PageTypeStruct `json:"pageType"`
   component_data.NavBarContainerStruct
+  component_data.AddToHomeStruct
 }
 
 
