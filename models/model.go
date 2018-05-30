@@ -21,3 +21,23 @@ type ValidatePhoneResponse struct {
   } `json:"payload"`
 }
 
+type SingleUseToken struct {
+  Token string `json:"token"`
+}
+
+type PersonCategories struct {
+  Payload struct {
+    Data [] struct {
+      Id int `json:"id"`
+      Name string `json:"name"`
+    } `json:"data"`
+  } `json:"payload"`
+}
+
+type PersonResponse struct {
+  Payload struct {
+    EmailAddress string  `json:"emailAddress"`
+    Id float64 `json:"id"`
+    Data map[string]interface{} `json:"data"`
+  } `json:"payload"`
+}
