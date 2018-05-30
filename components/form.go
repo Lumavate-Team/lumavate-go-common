@@ -65,7 +65,7 @@ func GetCheckboxFormComponent() *properties.Component {
   props = append(props, &properties.PropertyText{
 		&properties.PropertyBase{"checkboxLabel", "", "", "Label", ""}, "", properties.PropertyOptionsText{}})
   props = append(props, &properties.PropertyText{
-  		&properties.PropertyBase{"checkboxFieldName", "", "", "Field Name(s)", ""}, "", properties.PropertyOptionsText{}})
+  		&properties.PropertyBase{"checkboxFieldName", "", "", "Field Name", ""}, "", properties.PropertyOptionsText{}})
 
   return &properties.Component{"formCheckbox", "", "formCheckbox", "Checkbox", "x", "Checkbox", props}
 }
@@ -80,7 +80,7 @@ func GetAddressFormComponent() *properties.Component {
 	    &properties.PropertyBase{"addressRequired", "", "", "Require Field", ""},
 	    true})
 
-  return &properties.Component{"formAddress", "", "forAddress", "Address", "x", "Address", props}
+  return &properties.Component{"formAddress", "", "formAddress", "Address", "x", "Address", props}
 }
 
 func GetEmailFormComponent() *properties.Component {
@@ -93,7 +93,7 @@ func GetEmailFormComponent() *properties.Component {
 	    &properties.PropertyBase{"emailRequired", "", "", "Require Field", ""},
 	    true})
 
-  return &properties.Component{"formEmailAddress", "", "forEmailAddress", "Email Address", "x", "Email Address", props}
+  return &properties.Component{"formEmailAddress", "", "formEmailAddress", "Email Address", "x", "Email Address", props}
 }
 
 func GetHiddenFormComponent() *properties.Component {
@@ -103,5 +103,5 @@ func GetHiddenFormComponent() *properties.Component {
   props = append(props, &properties.PropertyText{
   		&properties.PropertyBase{"hiddenFieldName", "", "", "Field Name", ""}, "", properties.PropertyOptionsText{}})
 
-  return &properties.Component{"formHidden", "", "forHidden", "Hidden", "x", "Hidden", props}
+  return &properties.Component{"formHidden", "", "formHidden", "Hidden", "x", "Hidden", props}
 }

@@ -79,22 +79,29 @@ type HiddenStruct struct {
 func (this FormStruct) GetHtml() string {
 	var html string
 
-	for _, element := range this.FormItems {
+	for index, element := range this.FormItems {
+		fmt.Println(index)
 		html = html + fmt.Sprintf(`
 			<div class="nav-item nav-tile">
 				%v
+			</div>
+			<div style="margin:20px;">
 			</div>`,
 			element.ComponentData.Item.GetHtml())
 	}
 
+	fmt.Println("Out")
+
 	return fmt.Sprintf(`
-		<form action="">
+		<form class="pure-form" action="">
 			%v
+			<button class="button-large" type="button">Submit</button>
 		</form>`,
 		html)
 }
 
 func (this FormTextStruct) GetHtml() string {
+	fmt.Println("FormTextStruct")
 	var required = ""
 	if this.ComponentData.TextRequired == true {
 		required = "required"
@@ -112,6 +119,7 @@ func (this FormTextStruct) GetHtml() string {
 }
 
 func (this DateStruct) GetHtml() string {
+	fmt.Println("DateStruct")
 	return fmt.Sprintf(`
 		<div>
 			<input aria-label="%v" id="%v" name="%v" type="date">
@@ -136,6 +144,7 @@ func (this DropDownStruct) GetHtml() string {
 }
 
 func (this CheckboxStruct) GetHtml() string {
+	fmt.Println("CheckboxStruct")
 	return fmt.Sprintf(`
 		<div>
 			<input type="checkbox" name="%v" value="%v">%v
@@ -152,11 +161,16 @@ func (this AddressStruct) GetHtml() string {
 }
 
 func (this EmailStruct) GetHtml() string {
+	fmt.Println("EmailStruct")
 	return fmt.Sprintf(`
 		<div>
-			<input type="email" name="%v">
+			<input class="pure-input-1" aria-label="%v" id="%v" name="%v" type="email" placeholder="%v" %v />
 		</div>`,
-		this.ComponentData.EmailFieldName)
+		this.ComponentData.EmailLabel,
+		this.ComponentData.EmailFieldName,
+		this.ComponentData.EmailFieldName,
+		this.ComponentData.EmailLabel,
+		"required")
 }
 
 func (this HiddenStruct) GetHtml() string {
