@@ -3,6 +3,7 @@ package common
 import (
   "github.com/astaxie/beego"
   "fmt"
+  "strings"
  _ "errors"
   "os"
   "github.com/Lumavate-Team/lumavate-go-common/api_core"
@@ -24,29 +25,25 @@ func (this *LumavateController) LumavateInit() {
 }
 
 func (this *LumavateController) LumavateGet(url string, single_token ...bool) ([]byte, string) {
-  lr := api_core.LumavateRequest{this.Ctx.GetCookie("pwa_jwt")}
-
+  lr := this.GetRequest()
   use_single_token := lr.ExtractSingleTokenFlag(single_token)
   return lr.Get(url, use_single_token)
 }
 
 func (this *LumavateController) LumavatePost(url string, payload []byte, single_token ...bool) ([]byte, string) {
-  lr := api_core.LumavateRequest{this.Ctx.GetCookie("pwa_jwt")}
-
+  lr := this.GetRequest()
   use_single_token := lr.ExtractSingleTokenFlag(single_token)
   return lr.Post(url, payload, use_single_token)
 }
 
 func (this *LumavateController) LumavatePut(url string, payload []byte, single_token ...bool) ([]byte, string) {
-  lr := api_core.LumavateRequest{this.Ctx.GetCookie("pwa_jwt")}
-
+  lr := this.GetRequest()
   use_single_token := lr.ExtractSingleTokenFlag(single_token)
   return lr.Put(url, payload, use_single_token)
 }
 
 func (this *LumavateController) LumavateDelete(url string, payload []byte, single_token ...bool) ([]byte, string) {
-  lr := api_core.LumavateRequest{this.Ctx.GetCookie("pwa_jwt")}
-
+  lr := this.GetRequest()
   use_single_token := lr.ExtractSingleTokenFlag(single_token)
   return lr.Delete(url, payload, use_single_token)
 }
@@ -87,6 +84,16 @@ func (this *LumavateController) GetWidgetDataUrl() string {
   )
 }
 
+func (this *LumavateController) GetRequest() api_core.LumavateRequest{
+  auth_header = this.Ctx.Input.Header("Authorization")
+
+  if strings.HasPrefix("Bearer ", auth_header){
+    return api_core.LumavateRequest{strings.TrimPrefix(auth_header, "Bearer ")}
+  }
+  
+  return api_core.LumavateRequest{this.Ctx.GetCookie("pwa_jwt")}
+}
+
 func (this *LumavateController) MustHaveValidSingleUseToken() {
   token := this.Ctx.Input.Header("Experience-Token")
   if token == "" {
@@ -98,12 +105,6 @@ func (this *LumavateController) MustHaveValidSingleUseToken() {
   if status == "400" {
     this.Data["json"] = map[string]interface{}{"errorCode":403, "error":"Invalid Token"}
     this.Abort("403")
-    /*
-//    this.Abort("403")
-    this.Ctx.ResponseWriter.WriteHeader(403)
-    this.Data["json"] = map[string]interface{}{"Error":"Invalid token"}
-	  this.ServeJSON()
-    */
   }
 }
 
