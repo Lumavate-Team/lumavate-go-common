@@ -81,7 +81,7 @@ func (this *LumavateRequest) Request(method string, url string, payload []byte, 
   if res.StatusCode == 200 {
     return body, "200"
   } else {
-    return []byte{}, strconv.Itoa(res.StatusCode)
+    return body, strconv.Itoa(res.StatusCode)
   }
 }
 
@@ -95,7 +95,6 @@ func (this *LumavateRequest) ExtractSingleTokenFlag(single_token []bool) bool{
 func (this *LumavateRequest) GetSingleUseToken() (*models.SingleUseToken, int) {
   
   t, status := this.Post("/pwa/v1/single-use-token", []byte{}, false)
-  fmt.Println("Single use status: ", status)
   if code, _ := strconv.Atoi(status); code != 200 {
     return nil, code
   }
