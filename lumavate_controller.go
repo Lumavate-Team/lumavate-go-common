@@ -85,7 +85,7 @@ func (this *LumavateController) GetWidgetDataUrl() string {
 }
 
 func (this *LumavateController) GetRequest() api_core.LumavateRequest{
-  auth_header = this.Ctx.Input.Header("Authorization")
+  auth_header := this.Ctx.Input.Header("Authorization")
 
   if strings.HasPrefix("Bearer ", auth_header){
     return api_core.LumavateRequest{strings.TrimPrefix(auth_header, "Bearer ")}
