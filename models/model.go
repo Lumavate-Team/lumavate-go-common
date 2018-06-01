@@ -46,3 +46,12 @@ type PersonResponse struct {
     Data map[string]interface{} `json:"data"`
   } `json:"payload"`
 }
+
+type ErrorPayload struct {
+    Error string `json:"error"`
+    ApiField string `json:"apiField"`
+}
+type  ErrorResponse struct {
+  Payload ErrorPayload `json:"payload"`
+  CallType string `json:"callType"`
+}

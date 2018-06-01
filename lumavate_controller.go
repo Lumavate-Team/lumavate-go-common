@@ -55,11 +55,27 @@ func (this *LumavateController) LumavateGetData() []byte {
   case "200":
     return data
   case "401":
+    fmt.Println("401")
     this.NoAuthRedirect()
   default:
     this.Abort(status)
   }
   return []byte{}
+}
+
+// returns status codes instead of eating codes and doing redirects
+// useful for when a widget is calling to an api widget like in data-widget
+func (this *LumavateController) LumavateApiGetData() ([]byte,string) {
+  this.LumavateInit()
+  data, status := this.LumavateGet(this.GetWidgetDataUrl())
+  switch status {
+    case "200":
+      return data, "200"
+    case "401":
+      return []byte{}, "401"
+    default:
+      return []byte{}, status
+  }
 }
 
 func (this *LumavateController) GetSelfUrl() string {

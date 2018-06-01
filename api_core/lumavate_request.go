@@ -47,13 +47,15 @@ func (this *LumavateRequest) Request(method string, url string, payload []byte, 
     s.GetSignature(strings.ToLower(method), url, payload))
 
 	req, err := http.NewRequest(method, signed_widget_data_url, bytes.NewReader(payload))
+  if err != nil {
+    fmt.Println(err)
+    return []byte{}, "500"
+  }
   req.Header.Add("Content-Type", "application/json")
   req.Header.Add("Authorization", "Bearer " + this.GetAuth())
 
-  fmt.Println("Use token value: ", use_single_token)
   if use_single_token {
     token_obj, code := this.GetSingleUseToken()
-    fmt.Println("Use token: ", token_obj.Payload.Data.Token)
     if code == 200 {
       req.Header.Add("Experience-Token", token_obj.Payload.Data.Token)
     } else {
@@ -101,14 +103,11 @@ func (this *LumavateRequest) GetSingleUseToken() (models.SingleUseToken, int) {
   }
 
   var token models.SingleUseToken
-//  var token map[string]interface{}
   if err  := json.Unmarshal([]byte(t), &token); err != nil{
     fmt.Println(err)
     return models.SingleUseToken{}, 500
   }
 
-  fmt.Println("TOKEN: ", token)
-  //return models.SingleUseToken{}, 200
   return token, 200
 }
 

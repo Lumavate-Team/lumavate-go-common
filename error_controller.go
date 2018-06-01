@@ -9,6 +9,10 @@ type ErrorController struct {
 func (this *ErrorController) Error400() {
   this.Error(map[string]interface{}{"errorCode":400, "error": "Bad Request"})
 }
+
+func (this *ErrorController) Error401() {
+  this.Error(map[string]interface{}{"errorCode":401, "error": "Unauthorized"})
+}
 func (this *ErrorController) Error403() {
   this.Error(map[string]interface{}{"errorCode":403, "error": "Access forbidden"})
 }
@@ -20,6 +24,10 @@ func (this *ErrorController) Error404() {
 func (this *ErrorController) Error500() {
 
   this.Error(map[string]interface{}{"errorCode":500, "error": "Internal server error"})
+}
+
+func (this *ErrorController) Error502(){
+  this.Error(map[string]interface{}{"errorCode":502, "error": "Bad Gateway"})
 }
 
 func (this *ErrorController) Error(default_value map[string]interface{}){
