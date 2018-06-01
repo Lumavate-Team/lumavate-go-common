@@ -23,7 +23,11 @@ type ValidatePhoneResponse struct {
 }
 
 type SingleUseToken struct {
-  Token string `json:"token"`
+  Payload struct {
+    Data struct {
+      Token string `json:"token"`
+    } `json:"data"`
+  } `json:"payload"`
 }
 
 type PersonCategories struct {

@@ -50,11 +50,12 @@ func (this *LumavateRequest) Request(method string, url string, payload []byte, 
   req.Header.Add("Content-Type", "application/json")
   req.Header.Add("Authorization", "Bearer " + this.GetAuth())
 
-
+  fmt.Println("Use token value: ", use_single_token)
   if use_single_token {
     token_obj, code := this.GetSingleUseToken()
+    fmt.Println("Use token: ", token_obj.Payload.Data.Token)
     if code == 200 {
-      req.Header.Add("Experience-Token", token_obj.Token)
+      req.Header.Add("Experience-Token", token_obj.Payload.Data.Token)
     } else {
       return []byte{}, strconv.Itoa(code)
     }
@@ -92,20 +93,23 @@ func (this *LumavateRequest) ExtractSingleTokenFlag(single_token []bool) bool{
   return false
 }
 
-func (this *LumavateRequest) GetSingleUseToken() (*models.SingleUseToken, int) {
+func (this *LumavateRequest) GetSingleUseToken() (models.SingleUseToken, int) {
   
-  t, status := this.Post("/pwa/v1/single-use-token", []byte{}, false)
+  t, status := this.Post("/pwa/v1/single-use-token", []byte{})
   if code, _ := strconv.Atoi(status); code != 200 {
-    return nil, code
+    return models.SingleUseToken{}, code
   }
 
   var token models.SingleUseToken
+//  var token map[string]interface{}
   if err  := json.Unmarshal([]byte(t), &token); err != nil{
     fmt.Println(err)
-    return nil, 500
+    return models.SingleUseToken{}, 500
   }
 
-  return &token, 200
+  fmt.Println("TOKEN: ", token)
+  //return models.SingleUseToken{}, 200
+  return token, 200
 }
 
 
