@@ -84,10 +84,12 @@ func (this *LumavateController) GetWidgetDataUrl() string {
   )
 }
 
+// attempt to get token from header first.
+// if it doesn't exist their then fallback to cookie
 func (this *LumavateController) GetRequest() api_core.LumavateRequest{
   auth_header := this.Ctx.Input.Header("Authorization")
 
-  if strings.HasPrefix("Bearer ", auth_header){
+  if len(auth_header) > 0 && strings.HasPrefix(auth_header, "Bearer "){
     return api_core.LumavateRequest{strings.TrimPrefix(auth_header, "Bearer ")}
   }
   
