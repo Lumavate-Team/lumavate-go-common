@@ -48,6 +48,12 @@ func (this *LumavateController) LumavateDelete(url string, payload []byte, singl
   return lr.Delete(url, payload, use_single_token)
 }
 
+func (this *LumavateController) LumavatePatch(url string, payload []byte, single_token ...bool) ([]byte, string) {
+  lr := this.GetRequest()
+  use_single_token := lr.ExtractSingleTokenFlag(single_token)
+  return lr.Patch(url, payload, use_single_token)
+}
+
 func (this *LumavateController) LumavateGetData() []byte {
   this.LumavateInit()
   data, status := this.LumavateGet(this.GetWidgetDataUrl())
@@ -108,7 +114,7 @@ func (this *LumavateController) GetRequest() api_core.LumavateRequest{
   if len(auth_header) > 0 && strings.HasPrefix(auth_header, "Bearer "){
     return api_core.LumavateRequest{strings.TrimPrefix(auth_header, "Bearer ")}
   }
-  
+
   return api_core.LumavateRequest{this.Ctx.GetCookie("pwa_jwt")}
 }
 
@@ -117,7 +123,7 @@ func (this *LumavateController) MustHaveValidSingleUseToken() {
   if token == "" {
     this.Abort("403")
   }
-  
+
   lr := api_core.LumavateRequest{this.Ctx.GetCookie("pwa_jwt")}
   _, status := lr.Get(fmt.Sprintf("/pwa/v1/single-use-token/%v", token), false)
   if status == "400" {
@@ -125,5 +131,3 @@ func (this *LumavateController) MustHaveValidSingleUseToken() {
     this.Abort("403")
   }
 }
-
-
