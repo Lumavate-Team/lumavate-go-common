@@ -12,7 +12,7 @@ type TokenStruct struct {
 			Lang string
 			Namespace string
 			QueryString string
-			BrowserSupported bool
+			IsBrowserSupported bool
 			SiteId int
 			SubscriberId int
 			ThemeColor string
