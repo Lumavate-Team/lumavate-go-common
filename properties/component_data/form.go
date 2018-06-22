@@ -93,7 +93,7 @@ func (this FormStruct) GetHtml() string {
 	fmt.Println("Out")
 
 	return fmt.Sprintf(`
-		<form class="pure-form" id="register" novalidate>
+		<form class="pure-form" id="register" method="post" novalidate>
 			%v
 			<button class="button-large" id="submitRegister" type="submit">Submit</button>
 		</form>`,
