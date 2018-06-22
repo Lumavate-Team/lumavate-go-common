@@ -3,7 +3,6 @@ package component_data
 type TokenStruct struct {
 	Payload struct {
 		Data struct {
-			ActivationId int
 			CompanyId int
 			DefaultLang string
 			DisplayName string
