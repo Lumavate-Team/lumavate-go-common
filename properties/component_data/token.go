@@ -3,7 +3,6 @@ package component_data
 type TokenStruct struct {
 	Payload struct {
 		Data struct {
-			ActivationId int
 			CompanyId int
 			DefaultLang string
 			DisplayName string
@@ -14,7 +13,6 @@ type TokenStruct struct {
 			QueryString string
 			IsBrowserSupported bool
 			SiteId int
-			SubscriberId int
 			ThemeColor string
 			Version string
 		}
