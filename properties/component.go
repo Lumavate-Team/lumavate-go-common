@@ -43,7 +43,7 @@ type PropertyOptionsComponent struct {
 type PropertyComponent struct {
 	*PropertyBase
 	DefaultComponent *Component `json:"-"`
-	Options PropertyOptionsComponent `json:"options"`
+	Options *PropertyOptionsComponent `json:"options"`
 }
 
 func (p *PropertyComponent) MarshalJSON() (b []byte, e error) {
