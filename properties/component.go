@@ -69,7 +69,7 @@ func (p *PropertyComponent) MarshalJSON() (b []byte, e error) {
 type PropertyComponents struct {
 	*PropertyBase
 	Default [] *Component `json:"default"`
-	Options PropertyOptionsComponent `json:"options"`
+	Options *PropertyOptionsComponent `json:"options"`
 }
 
 func (p *PropertyComponents) MarshalJSON() (b []byte, e error) {
