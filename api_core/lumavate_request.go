@@ -58,10 +58,6 @@ func (this *LumavateRequest) Request(method string, url string, payload []byte, 
   }
   req.Header.Add("Content-Type", "application/json")
   req.Header.Add("Authorization", "Bearer " + this.GetAuth())
-  req.Header.Add("pwa-s", this.Ctx.GetCookie("pwa_s"))
-  fmt.Println(this.Ctx.GetCookie("pwa_s"))
-
-
 
   if use_single_token {
     token_obj, code := this.GetSingleUseToken()
