@@ -26,37 +26,30 @@ func (this *LumavateController) LumavateInit() {
 
 func (this *LumavateController) LumavateGet(url string, single_token ...bool) ([]byte, string) {
   lr := this.GetRequest()
-  fmt.Println("Get")
-  fmt.Println(this.Ctx.GetCookie("pwa_s"))
   use_single_token := lr.ExtractSingleTokenFlag(single_token)
   return lr.Get(url, this.Ctx.GetCookie("pwa_s"), use_single_token)
 }
 
 func (this *LumavateController) LumavatePost(url string, payload []byte, single_token ...bool) ([]byte, string) {
   lr := this.GetRequest()
-  fmt.Println("Post")
-  fmt.Println(this.Ctx.GetCookie("pwa_s"))
   use_single_token := lr.ExtractSingleTokenFlag(single_token)
   return lr.Post(url, this.Ctx.GetCookie("pwa_s"), payload, use_single_token)
 }
 
 func (this *LumavateController) LumavatePut(url string, payload []byte, single_token ...bool) ([]byte, string) {
   lr := this.GetRequest()
-  fmt.Println(this.Ctx.GetCookie("pwa_s"))
   use_single_token := lr.ExtractSingleTokenFlag(single_token)
   return lr.Put(url,this.Ctx.GetCookie("pwa_s"), payload, use_single_token)
 }
 
 func (this *LumavateController) LumavateDelete(url string, payload []byte, single_token ...bool) ([]byte, string) {
   lr := this.GetRequest()
-  fmt.Println(this.Ctx.GetCookie("pwa_s"))
   use_single_token := lr.ExtractSingleTokenFlag(single_token)
   return lr.Delete(url, this.Ctx.GetCookie("pwa_s"), payload, use_single_token)
 }
 
 func (this *LumavateController) LumavatePatch(url string, payload []byte, single_token ...bool) ([]byte, string) {
   lr := this.GetRequest()
-  fmt.Println(this.Ctx.GetCookie("pwa_s"))
   use_single_token := lr.ExtractSingleTokenFlag(single_token)
   return lr.Patch(url, this.Ctx.GetCookie("pwa_s"), payload, use_single_token)
 }
