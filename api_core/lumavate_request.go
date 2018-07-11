@@ -27,12 +27,12 @@ func (this *LumavateRequest) Get(url string, session_id string, use_single_token
 
 func (this *LumavateRequest) Post(url string, session_id string, payload []byte, use_single_token ...bool) ([]byte, string) {
   use_token := this.ExtractSingleTokenFlag(use_single_token)
-	return this.Request("POST", url, payload, session_id, use_token)
+	return this.Request("POST", url, session_id, payload, use_token)
 }
 
 func (this *LumavateRequest) Put(url string, session_id string, payload []byte, use_single_token ...bool) ([]byte, string) {
   use_token := this.ExtractSingleTokenFlag(use_single_token)
-	return this.Request("PUT", url, payload, session_id, use_token)
+	return this.Request("PUT", url, session_id, payload, use_token)
 }
 
 func (this *LumavateRequest) Patch(url string, session_id string, payload []byte, use_single_token ...bool) ([]byte, string) {
@@ -104,7 +104,7 @@ func (this *LumavateRequest) ExtractSingleTokenFlag(single_token []bool) bool{
 
 func (this *LumavateRequest) GetSingleUseToken() (models.SingleUseToken, int) {
 
-  t, status := this.Post("/pwa/v1/single-use-token", []byte{})
+  t, status := this.Post("/pwa/v1/single-use-token", "", []byte{})
   if code, _ := strconv.Atoi(status); code != 200 {
     return models.SingleUseToken{}, code
   }
