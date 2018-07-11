@@ -2,12 +2,14 @@ package components
 
 import (
   "github.com/Lumavate-Team/lumavate-go-common/properties"
+"fmt"
+  "os"
 )
 
 func GetFormItemsProperty() *properties.PropertyComponents {
   return &properties.PropertyComponents {
     &properties.PropertyBase{"formItems", "Form", "Field Types", "Field Types", ""},
-    [] *properties.Component{}, properties.PropertyOptionsComponent{[] string {"formText", "formDate", "formDropDown", "formCheckbox", "formAddress", "formEmailAddress", "formHidden"}, [] *properties.Component {GetTextFormComponent(), GetDateFormComponent(), GetDropDownFormComponent(), GetCheckboxFormComponent(), GetAddressFormComponent(), GetEmailFormComponent(), GetHiddenFormComponent()} },
+    [] *properties.Component{}, &properties.PropertyOptionsComponent{[] string {"formText", "formDate", "formCheckbox", "formAddress", "formEmailAddress", "formHidden"}, [] *properties.Component {GetTextFormComponent(), GetDateFormComponent(), GetCheckboxFormComponent(), GetAddressFormComponent(), GetEmailFormComponent(), GetHiddenFormComponent()} },
   }
 }
 
@@ -28,8 +30,8 @@ func GetTextFormComponent() *properties.Component {
   		&properties.PropertyBase{"textErrorText", "", "", "Error Text", ""}, "", properties.PropertyOptionsText{}})
 	props = append(props, &properties.PropertyText{
   		&properties.PropertyBase{"textInputType", "", "", "Input Type", ""}, "", properties.PropertyOptionsText{}})
-	
-  return &properties.Component{"formText", "", "formText", "Text", "x", "Text", props}
+	image := fmt.Sprintf("%v%v/static/images/form-text.svg", os.Getenv("WIDGET_URL_PREFIX"),os.Getenv("PUBLIC_KEY"))
+  return &properties.Component{"formText", "", "formText", "Text", image, "Text", props}
 }
 
 func GetDateFormComponent() *properties.Component {
@@ -41,8 +43,8 @@ func GetDateFormComponent() *properties.Component {
 	props = append(props, &properties.PropertyToggle{
 	    &properties.PropertyBase{"dateRequired", "", "", "Require Field", ""},
 	    true})
-	
-  return &properties.Component{"formDate", "", "formDate", "Date", "x", "Date", props}
+	image := fmt.Sprintf("%v%v/static/images/form-date.svg", os.Getenv("WIDGET_URL_PREFIX"),os.Getenv("PUBLIC_KEY"))
+  return &properties.Component{"formDate", "", "formDate", "Date", image, "Date", props}
 }
 
 func GetDropDownFormComponent() *properties.Component {
@@ -56,8 +58,8 @@ func GetDropDownFormComponent() *properties.Component {
 	    true})
 	props = append(props, &properties.PropertyText{
 		&properties.PropertyBase{"dropDownItems", "", "", "Drop Down Items", ""}, "", properties.PropertyOptionsText{}})
-	
-  return &properties.Component{"formDropDown", "", "formDropDown", "Drop Down", "x", "Drop Down", props}
+	image := fmt.Sprintf("%v%v/static/images/form-dropdown.svg", os.Getenv("WIDGET_URL_PREFIX"),os.Getenv("PUBLIC_KEY"))
+  return &properties.Component{"formDropDown", "", "formDropDown", "Drop Down", image, "Drop Down", props}
 }
 
 func GetCheckboxFormComponent() *properties.Component {
@@ -66,8 +68,8 @@ func GetCheckboxFormComponent() *properties.Component {
 		&properties.PropertyBase{"checkboxLabel", "", "", "Label", ""}, "", properties.PropertyOptionsText{}})
   props = append(props, &properties.PropertyText{
   		&properties.PropertyBase{"checkboxFieldName", "", "", "Field Name", ""}, "", properties.PropertyOptionsText{}})
-
-  return &properties.Component{"formCheckbox", "", "formCheckbox", "Checkbox", "x", "Checkbox", props}
+	image := fmt.Sprintf("%v%v/static/images/form-checkbox.svg", os.Getenv("WIDGET_URL_PREFIX"),os.Getenv("PUBLIC_KEY"))
+  return &properties.Component{"formCheckbox", "", "formCheckbox", "Checkbox", image, "Checkbox", props}
 }
 
 func GetAddressFormComponent() *properties.Component {
@@ -79,8 +81,8 @@ func GetAddressFormComponent() *properties.Component {
   props = append(props, &properties.PropertyToggle{
 	    &properties.PropertyBase{"addressRequired", "", "", "Require Field", ""},
 	    true})
-
-  return &properties.Component{"formAddress", "", "formAddress", "Address", "x", "Address", props}
+	image := fmt.Sprintf("%v%v/static/images/form-address.svg", os.Getenv("WIDGET_URL_PREFIX"),os.Getenv("PUBLIC_KEY"))
+  return &properties.Component{"formAddress", "", "formAddress", "Address", image, "Address", props}
 }
 
 func GetEmailFormComponent() *properties.Component {
@@ -92,8 +94,8 @@ func GetEmailFormComponent() *properties.Component {
   props = append(props, &properties.PropertyToggle{
 	    &properties.PropertyBase{"emailRequired", "", "", "Require Field", ""},
 	    true})
-
-  return &properties.Component{"formEmailAddress", "", "formEmailAddress", "Email Address", "x", "Email Address", props}
+	image := fmt.Sprintf("%v%v/static/images/form-email.svg", os.Getenv("WIDGET_URL_PREFIX"),os.Getenv("PUBLIC_KEY"))
+  return &properties.Component{"formEmailAddress", "", "formEmailAddress", "Email Address", image, "Email Address", props}
 }
 
 func GetHiddenFormComponent() *properties.Component {
@@ -102,6 +104,6 @@ func GetHiddenFormComponent() *properties.Component {
 		&properties.PropertyBase{"hiddenLabel", "", "", "Label", ""}, "", properties.PropertyOptionsText{}})
   props = append(props, &properties.PropertyText{
   		&properties.PropertyBase{"hiddenFieldName", "", "", "Field Name", ""}, "", properties.PropertyOptionsText{}})
-
-  return &properties.Component{"formHidden", "", "formHidden", "Hidden", "x", "Hidden", props}
+	image := fmt.Sprintf("%v%v/static/images/form-hidden.svg", os.Getenv("WIDGET_URL_PREFIX"),os.Getenv("PUBLIC_KEY"))
+  return &properties.Component{"formHidden", "", "formHidden", "Hidden", image, "Hidden", props}
 }

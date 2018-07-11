@@ -13,7 +13,6 @@ type TokenStruct struct {
 			QueryString string
 			IsBrowserSupported bool
 			SiteId int
-			SubscriberId int
 			ThemeColor string
 			Version string
 		}
