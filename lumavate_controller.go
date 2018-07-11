@@ -130,7 +130,7 @@ func (this *LumavateController) MustHaveValidSingleUseToken() {
   }
 
   lr := api_core.LumavateRequest{this.Ctx.GetCookie("pwa_jwt")}
-  _, status := lr.Get(fmt.Sprintf("/pwa/v1/single-use-token/%v", token), false)
+  _, status := lr.Get(fmt.Sprintf("/pwa/v1/single-use-token/%v", '', token), false)
   if status == "400" {
     this.Data["json"] = map[string]interface{}{"errorCode":403, "error":"Invalid Token"}
     this.Abort("403")
