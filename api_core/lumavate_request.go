@@ -20,32 +20,32 @@ func (this *LumavateRequest) GetAuth() string {
   return strings.TrimPrefix(this.Authorization, "Bearer " + this.Authorization)
 }
 
-func (this *LumavateRequest) Get(url string, session_id string, use_single_token ...bool) ([]byte, string) {
+func (this *LumavateRequest) Get(url string, use_single_token ...bool) ([]byte, string) {
   use_token := this.ExtractSingleTokenFlag(use_single_token)
-	return this.Request("GET", url, session_id, []byte{}, use_token)
+	return this.Request("GET", url, []byte{}, use_token)
 }
 
-func (this *LumavateRequest) Post(url string, session_id string, payload []byte, use_single_token ...bool) ([]byte, string) {
+func (this *LumavateRequest) Post(url string, payload []byte, use_single_token ...bool) ([]byte, string) {
   use_token := this.ExtractSingleTokenFlag(use_single_token)
-	return this.Request("POST", url, session_id, payload, use_token)
+	return this.Request("POST", url, payload, use_token)
 }
 
-func (this *LumavateRequest) Put(url string, session_id string, payload []byte, use_single_token ...bool) ([]byte, string) {
+func (this *LumavateRequest) Put(url string, payload []byte, use_single_token ...bool) ([]byte, string) {
   use_token := this.ExtractSingleTokenFlag(use_single_token)
-	return this.Request("PUT", url, session_id, payload, use_token)
+	return this.Request("PUT", url, payload, use_token)
 }
 
-func (this *LumavateRequest) Patch(url string, session_id string, payload []byte, use_single_token ...bool) ([]byte, string) {
+func (this *LumavateRequest) Patch(url string, payload []byte, use_single_token ...bool) ([]byte, string) {
   use_token := this.ExtractSingleTokenFlag(use_single_token)
-	return this.Request("PATCH", url, session_id, payload, use_token)
+	return this.Request("PATCH", url, payload, use_token)
 }
 
-func (this *LumavateRequest) Delete(url string, session_id string, payload []byte, use_single_token ...bool) ([]byte, string){
+func (this *LumavateRequest) Delete(url string, payload []byte, use_single_token ...bool) ([]byte, string){
   use_token := this.ExtractSingleTokenFlag(use_single_token)
-  return this.Request("DELETE", url, session_id, payload, use_token)
+  return this.Request("DELETE", url, payload, use_token)
 }
 
-func (this *LumavateRequest) Request(method string, url string, session_id string, payload []byte, use_single_token bool) ([]byte, string) {
+func (this *LumavateRequest) Request(method string, url string, payload []byte, use_single_token bool) ([]byte, string) {
   s := Signer{}
   signed_widget_data_url := fmt.Sprintf("%s%s",
     os.Getenv("BASE_URL"),
@@ -58,8 +58,6 @@ func (this *LumavateRequest) Request(method string, url string, session_id strin
   }
   req.Header.Add("Content-Type", "application/json")
   req.Header.Add("Authorization", "Bearer " + this.GetAuth())
-  req.Header.Add("pwa-s", session_id)
-
 
   if use_single_token {
     token_obj, code := this.GetSingleUseToken()
@@ -104,7 +102,7 @@ func (this *LumavateRequest) ExtractSingleTokenFlag(single_token []bool) bool{
 
 func (this *LumavateRequest) GetSingleUseToken() (models.SingleUseToken, int) {
 
-  t, status := this.Post("/pwa/v1/single-use-token", "", []byte{})
+  t, status := this.Post("/pwa/v1/single-use-token", []byte{})
   if code, _ := strconv.Atoi(status); code != 200 {
     return models.SingleUseToken{}, code
   }

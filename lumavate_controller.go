@@ -27,31 +27,31 @@ func (this *LumavateController) LumavateInit() {
 func (this *LumavateController) LumavateGet(url string, single_token ...bool) ([]byte, string) {
   lr := this.GetRequest()
   use_single_token := lr.ExtractSingleTokenFlag(single_token)
-  return lr.Get(url, this.Ctx.GetCookie("pwa_s"), use_single_token)
+  return lr.Get(url, use_single_token)
 }
 
 func (this *LumavateController) LumavatePost(url string, payload []byte, single_token ...bool) ([]byte, string) {
   lr := this.GetRequest()
   use_single_token := lr.ExtractSingleTokenFlag(single_token)
-  return lr.Post(url, this.Ctx.GetCookie("pwa_s"), payload, use_single_token)
+  return lr.Post(url, payload, use_single_token)
 }
 
 func (this *LumavateController) LumavatePut(url string, payload []byte, single_token ...bool) ([]byte, string) {
   lr := this.GetRequest()
   use_single_token := lr.ExtractSingleTokenFlag(single_token)
-  return lr.Put(url,this.Ctx.GetCookie("pwa_s"), payload, use_single_token)
+  return lr.Put(url, payload, use_single_token)
 }
 
 func (this *LumavateController) LumavateDelete(url string, payload []byte, single_token ...bool) ([]byte, string) {
   lr := this.GetRequest()
   use_single_token := lr.ExtractSingleTokenFlag(single_token)
-  return lr.Delete(url, this.Ctx.GetCookie("pwa_s"), payload, use_single_token)
+  return lr.Delete(url, payload, use_single_token)
 }
 
 func (this *LumavateController) LumavatePatch(url string, payload []byte, single_token ...bool) ([]byte, string) {
   lr := this.GetRequest()
   use_single_token := lr.ExtractSingleTokenFlag(single_token)
-  return lr.Patch(url, this.Ctx.GetCookie("pwa_s"), payload, use_single_token)
+  return lr.Patch(url, payload, use_single_token)
 }
 
 func (this *LumavateController) LumavateGetData() []byte {
@@ -125,7 +125,7 @@ func (this *LumavateController) MustHaveValidSingleUseToken() {
   }
 
   lr := api_core.LumavateRequest{this.Ctx.GetCookie("pwa_jwt")}
-  _, status := lr.Get(fmt.Sprintf("/pwa/v1/single-use-token/%v", token), "", false)
+  _, status := lr.Get(fmt.Sprintf("/pwa/v1/single-use-token/%v", token), false)
   if status == "400" {
     this.Data["json"] = map[string]interface{}{"errorCode":403, "error":"Invalid Token"}
     this.Abort("403")
