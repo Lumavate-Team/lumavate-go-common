@@ -34,7 +34,7 @@ type DynamicComponents struct {
 
 func (self *DynamicComponents) LoadAllComponentSets(authorization string) {
   lr := api_core.LumavateRequest{authorization}
-  body, _ := lr.Get("/pwa/v1/component-sets", "")
+  body, _ := lr.Get("/pwa/v1/component-sets")
   cs := ComponentSetRequest{}
   json.Unmarshal(body, &cs)
 
