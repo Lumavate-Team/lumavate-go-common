@@ -5,13 +5,13 @@ import (
 )
 
 type PropertyOptionsText struct {
-	ReadOnly bool
-	Rows int
+	ReadOnly bool `json:"readOnly"`
+	Rows int `json:"rows"`
 }
 
 type PropertyText struct {
 	*PropertyBase
-	Default string
+	Default string `json:"default"`
 	Options PropertyOptionsText `json:"options"`
 }
 
@@ -29,8 +29,8 @@ func (p *PropertyText) MarshalJSON() (b []byte, e error) {
 
 type PropertyTranslatedText struct {
 	*PropertyBase
-	Default string
-  Options PropertyOptionsText
+	Default string `json:"default"`
+  Options PropertyOptionsText `json:"options"`
 }
 
 func (p *PropertyTranslatedText) MarshalJSON() (b []byte, e error) {

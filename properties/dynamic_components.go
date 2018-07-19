@@ -11,6 +11,7 @@ type DynamicComponent struct {
 	Type       string
 	Tags       []string
 	Template   string
+	Section    string
 	Properties []PropertyType
 }
 
@@ -51,7 +52,7 @@ func (self *DynamicComponents) GetComponentsWithTag(tag string) []*Component {
 	for _, component := range self.Components {
 		for _, t := range component.Tags {
 			if t == tag {
-				components = append(components, &Component{tag, "", component.Type, "", component.Icon, component.Label, component.Properties})
+				components = append(components, &Component{tag, component.Section, component.Type, "", component.Icon, component.Label, component.Properties})
 			}
 		}
 	}
