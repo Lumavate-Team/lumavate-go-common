@@ -12,6 +12,7 @@ import (
     "os"
     "time"
     "math/rand"
+		"sort"
 )
 
 type Signer struct {
@@ -40,20 +41,40 @@ func (this *Signer) GetSignature(method string, url_to_sign string, body []byte)
   qs.Add("s-nonce", fmt.Sprintf("%d", rand.Intn(1000000000)))
 	p, _ := url.PathUnescape(root)
 
+	qs_string :=  orderQueryString(qs)
+
   key := fmt.Sprintf("%v\n%v\n%v\n%v",
                      method,
                      strings.ToLower(p),
-                     qs.Encode(),
+                     qs_string,
                      qs.Get("s-nonce"))
 
   h := hmac.New(sha256.New, privateKey)
   h.Write([]byte(key))
   signature := base64.StdEncoding.EncodeToString(h.Sum(nil))
-  qs.Add("s-signature", signature)
+  qs.Add("s-signature", url.QueryEscape(signature))
 	qs.Del("s-hash")
 
-  result := fmt.Sprintf("%v?%v", root, qs.Encode())
+	qs_string_final := orderQueryString(qs)
+
+	result := fmt.Sprintf("%v?%v", root, qs_string_final)
   return result
+}
+
+func orderQueryString(qs map[string][]string) string{
+	qs_keys := make([]string, 0)
+	for k, _ := range(qs) {
+		qs_keys = append(qs_keys, k)
+	}
+	sort.Strings(qs_keys)
+	qs_full := make([]string, 0)
+	for _, k := range(qs_keys) {
+		for _, v := range(qs[k]){
+			qs_full = append(qs_full, fmt.Sprintf("%s=%s", k, v))
+		}
+	}
+	qs_string := strings.Join(qs_full, "&")
+	return qs_string
 }
 
 func (this *Signer) GetMD5Hash(body []byte) string {
