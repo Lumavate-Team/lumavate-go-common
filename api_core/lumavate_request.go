@@ -49,7 +49,7 @@ func (this *LumavateRequest) Delete(url string, payload []byte, use_single_token
 func (this *LumavateRequest) Request(method string, url string, payload []byte, use_single_token bool) ([]byte, string) {
   s := Signer{}
   baseUrl := this.BaseUrl
-  if baseUrl = "" {
+  if (baseUrl = "") {
     baseUrl = os.Getenv("BASE_URL")
   } else {
     baseUrl = "https://" + this.BaseUrl
