@@ -112,7 +112,7 @@ func (this *LumavateController) GetRequest() api_core.LumavateRequest{
   auth_header := this.Ctx.Input.Header("Authorization")
 
   if len(auth_header) > 0 && strings.HasPrefix(auth_header, "Bearer "){
-    return api_core.LumavateRequest{strings.TrimPrefix(auth_header, "Bearer ")}
+    return api_core.LumavateRequest{strings.TrimPrefix(auth_header, "Bearer "), this.Ctx.Input.Host()}
   }
 
   return api_core.LumavateRequest{this.Ctx.GetCookie("pwa_jwt")}

@@ -11,6 +11,6 @@ type LumavateProperties struct {
 
 func NewLumavateProperties(auth string) *LumavateProperties {
 	lp := &LumavateProperties{auth, DynamicComponents{}}
-	lp.DynamicComponents.LoadAllComponentSets(lp.Authorization)
+	lp.DynamicComponents.LoadAllComponentSets(lp.Authorization, "")
 	return lp
 }

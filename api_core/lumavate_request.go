@@ -14,6 +14,7 @@ import (
 
 type LumavateRequest struct {
   Authorization string
+  BaseUrl       string
 }
 
 func (this *LumavateRequest) GetAuth() string {
@@ -47,8 +48,14 @@ func (this *LumavateRequest) Delete(url string, payload []byte, use_single_token
 
 func (this *LumavateRequest) Request(method string, url string, payload []byte, use_single_token bool) ([]byte, string) {
   s := Signer{}
+  baseUrl := this.BaseUrl
+  if baseUrl = "" {
+    baseUrl = os.Getenv("BASE_URL")
+  } else {
+    baseUrl = "https://" + this.BaseUrl
+  }
   signed_widget_data_url := fmt.Sprintf("%s%s",
-    os.Getenv("BASE_URL"),
+    baseUrl,
     s.GetSignature(strings.ToLower(method), url, payload))
 
 	req, err := http.NewRequest(method, signed_widget_data_url, bytes.NewReader(payload))
