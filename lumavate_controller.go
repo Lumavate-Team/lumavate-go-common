@@ -115,7 +115,7 @@ func (this *LumavateController) GetRequest() api_core.LumavateRequest{
     return api_core.LumavateRequest{strings.TrimPrefix(auth_header, "Bearer "), this.Ctx.Input.Host()}
   }
 
-  return api_core.LumavateRequest{this.Ctx.GetCookie("pwa_jwt")}
+  return api_core.LumavateRequest{this.Ctx.GetCookie("pwa_jwt"), this.Ctx.Input.Host()}
 }
 
 func (this *LumavateController) MustHaveValidSingleUseToken() {
@@ -124,7 +124,7 @@ func (this *LumavateController) MustHaveValidSingleUseToken() {
     this.Abort("403")
   }
 
-  lr := api_core.LumavateRequest{this.Ctx.GetCookie("pwa_jwt")}
+  lr := api_core.LumavateRequest{this.Ctx.GetCookie("pwa_jwt"), this.Ctx.Input.Host()}
   _, status := lr.Get(fmt.Sprintf("/pwa/v1/single-use-token/%v", token), false)
   if status == "400" {
     this.Data["json"] = map[string]interface{}{"errorCode":403, "error":"Invalid Token"}
