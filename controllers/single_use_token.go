@@ -1,15 +1,13 @@
 package controllers
 
-import (
-	common_controller "github.com/Lumavate-Team/lumavate-go-common/controllers"
-)
+import ()
 
 type SingleUseTokenStruct struct {
 	Token string `json:"token"`
 }
 
 type SingleUseTokenController struct {
-	common_controller.LumavateController
+	LumavateController
 }
 
 func (this *SingleUseTokenController) Post() {
