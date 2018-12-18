@@ -124,6 +124,7 @@ func (this *LumavateController) MustHaveValidSingleUseToken() {
     this.Abort("403")
   }
 
+  fmt.Println("HOST: " + this.Ctx.Input.Host())
   lr := api_core.LumavateRequest{this.Ctx.GetCookie("pwa_jwt"), this.Ctx.Input.Host()}
   _, status := lr.Get(fmt.Sprintf("/pwa/v1/single-use-token/%v", token), false)
   if status == "400" {
