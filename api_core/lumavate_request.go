@@ -23,7 +23,6 @@ func (this *LumavateRequest) GetAuth() string {
 
 func (this *LumavateRequest) Get(url string, use_single_token ...bool) ([]byte, string) {
 	use_token := this.ExtractSingleTokenFlag(use_single_token)
-	fmt.Println("URL: " + url)
 	return this.Request("GET", url, []byte{}, use_token)
 }
 
@@ -50,13 +49,11 @@ func (this *LumavateRequest) Delete(url string, payload []byte, use_single_token
 func (this *LumavateRequest) Request(method string, url string, payload []byte, use_single_token bool) ([]byte, string) {
 	s := Signer{}
 	baseUrl := this.BaseUrl
-	fmt.Println("BASE URL: " + baseUrl)
 	if baseUrl == "" {
 		baseUrl = os.Getenv("BASE_URL")
 	} else {
 		baseUrl = os.Getenv("PROTO") + this.BaseUrl
 	}
-	fmt.Println("NEW BASE: " + baseUrl)
 	signed_widget_data_url := fmt.Sprintf("%s%s",
 		baseUrl,
 		s.GetSignature(strings.ToLower(method), url, payload))
