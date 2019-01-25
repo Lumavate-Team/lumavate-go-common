@@ -9,7 +9,7 @@ func GetAddToHomeProperties() [] properties.PropertyType {
 
   props = append(props, &properties.PropertyToggle{
 	    &properties.PropertyBase{"showAddToHome", "Add To Home Screen", "Enable Add To Home Screen", "Add To Home Screen Prompt", ""},
-	    true})
+	    false})
   props = append(props, &properties.PropertyToggle{
 	    &properties.PropertyBase{"skipFirst", "Add To Home Screen", "On First Visit", "Skip first visit", "Show only to returning visitors (ie: skip the first time you visit)"},
 	    true})
