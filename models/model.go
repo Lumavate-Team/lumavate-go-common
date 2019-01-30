@@ -9,6 +9,7 @@ type CommonWidgetStruct struct {
 	PageType          component_data.PageTypeStruct `json:"pageType"`
 	DirectIncludes    []string                      `json:"__directIncludes"`
 	DirectCssIncludes []string                      `json:"__directCssIncludes"`
+	StyleData         []StyleData										`json:"styleData"`
 	component_data.NavBarContainerStruct
 	component_data.AddToHomeStruct
 }
@@ -38,6 +39,15 @@ type PersonCategories struct {
 			Name string `json:"name"`
 		} `json:"data"`
 	} `json:"payload"`
+}
+
+type StyleData struct {
+	Name						string			`json:"name"`
+	Type						string			`json:"type"`
+	Label						string			`json:"label"`
+	Value						string			`json:"value"`
+	HelpText				string			`json:"helpText"`
+	Classification	string			`json:"classification"`
 }
 
 type PersonResponse struct {
