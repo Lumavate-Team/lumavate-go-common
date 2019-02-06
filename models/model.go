@@ -42,12 +42,8 @@ type PersonCategories struct {
 }
 
 type StyleProp struct {
-	Name						string			`json:"name"`
-	Type						string			`json:"type"`
-	Label						string			`json:"label"`
-	Value						string			`json:"value"`
-	HelpText				string			`json:"helpText"`
-	Classification	string			`json:"classification"`
+	Name		string		`json:"name"`
+	Value		string		`json:"value"`
 }
 
 type PersonResponse struct {
