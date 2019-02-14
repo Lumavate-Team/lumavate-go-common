@@ -64,7 +64,7 @@ func (this *LumavateRequest) Request(method string, url string, payload []byte, 
 		return []byte{}, "500"
 	}
 	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("Authorization", "Bearer "+this.GetAuth())
+	req.Header.Add("Authorization", this.GetAuth())
 
 	if use_single_token {
 		token_obj, code := this.GetSingleUseToken()
