@@ -18,7 +18,7 @@ type LumavateRequest struct {
 }
 
 func (this *LumavateRequest) GetAuth() string {
-	return strings.TrimPrefix(this.Authorization, "Bearer "+this.Authorization)
+	return strings.TrimPrefix(this.Authorization, "Bearer ")
 }
 
 func (this *LumavateRequest) Get(url string, use_single_token ...bool) ([]byte, string) {
@@ -60,11 +60,10 @@ func (this *LumavateRequest) Request(method string, url string, payload []byte, 
 
 	req, err := http.NewRequest(method, signed_widget_data_url, bytes.NewReader(payload))
 	if err != nil {
-		fmt.Println(err)
 		return []byte{}, "500"
 	}
 	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("Authorization", this.GetAuth())
+	req.Header.Add("Authorization", "Bearer " + this.GetAuth())
 
 	if use_single_token {
 		token_obj, code := this.GetSingleUseToken()

@@ -7,10 +7,11 @@ import (
 type LumavateProperties struct {
 	Authorization     string
 	DynamicComponents DynamicComponents
+	BaseUrl           string
 }
 
-func NewLumavateProperties(auth string) *LumavateProperties {
-	lp := &LumavateProperties{auth, DynamicComponents{}}
-	lp.DynamicComponents.LoadAllComponentSets(lp.Authorization, "")
+func NewLumavateProperties(auth string, base_url string) *LumavateProperties {
+	lp := &LumavateProperties{auth, DynamicComponents{}, base_url}
+	lp.DynamicComponents.LoadAllComponentSets(lp.Authorization, base_url)
 	return lp
 }
