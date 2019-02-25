@@ -21,7 +21,7 @@ func ComponentHtml(in component_data.ComponentData) (out template.HTML) {
 	return
 }
 
-func ModalHtml(in models.Component) (out template.HTML) {
+func ModalHtml(in models.ComponentStruct) (out template.HTML) {
 	out = template.HTML(in.GetHtml())
 	return
 }

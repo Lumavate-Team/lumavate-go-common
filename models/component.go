@@ -4,14 +4,11 @@ import (
 	"fmt"
 )
 
-type Component struct {
+type ComponentStruct struct {
 	ComponentHtml string
 	ComponentType string
 }
 
-func (this Component) GetHtml() string {
-	return fmt.Sprintf(`
-  <div>%v</div>
-  `,
-		this.ComponentHtml)
+func (this ComponentStruct) GetHtml() string {
+	return fmt.Sprintf(`<div>%v</div>=`, this.ComponentHtml)
 }
