@@ -2,14 +2,14 @@ package models
 import "time"
 
 type ActivationStruct struct {
-	Id int
-	Key string
-	CreatedAt time.Time
-	CreatedBy int
-	Extension map[string]interface{}
-	LastModifiedAt time.Time
-	LastModifiedBy int
-  SerialNumber string
-	SiteName string
+  Id int `json:"id"`
+  Key string `json:"key"`
+  CreatedAt time.Time `json:"createdAt"`
+  CreatedBy int `json:"createdBy"`
+  Extension map[string]interface{} `json:"extension"`
+  LastModifiedAt time.Time `json:"lastModifiedAt"`
+  LastModifiedBy int `json:"lastModifiedBy"`
+  SerialNumber string `json:"serialNumber"`
+  SiteName string `json:"siteName"`
 }
 

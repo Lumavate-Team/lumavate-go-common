@@ -1,37 +1,38 @@
 package models
 
 import (
-		"encoding/json"
+    "encoding/json"
 )
 
 type WidgetData struct {
-	Payload struct {
-		Data struct {
+  Payload struct {
+    Data struct {
       AuthData struct {
-        Roles [] string
-				Status string
-				User string
+        Roles [] string `json:"roles"`
+        Status string `json:"status"`
+        User string `json:"user"`
       }
-			ActivationData ActivationStruct
-			Session map[string]interface{}
-			WidgetData json.RawMessage
-			DomainData struct {
-				Domain string
-				RuntimeData map[string]interface{}
-			}
-			TokenData TokenDataStruct
-			Resources struct {
-				Pages [] struct {
-					Id string
-					Url string
-				}
-				Microservices [] struct {
-					Id string
-					Url string
-				}
-			}
-		}
-	}
+      ActivationData ActivationStruct
+      Session map[string]interface{}
+      WidgetData json.RawMessage
+      DomainData struct {
+        Domain string `json:"domain"`
+        IsTest bool `json:"isTest"`
+        RuntimeData map[string]interface{} `json:"runtimeData"`
+      }
+      TokenData TokenDataStruct
+      Resources struct {
+        Pages [] struct {
+          Id string
+          Url string
+        }
+        Microservices [] struct {
+          Id string
+          Url string
+        }
+      }
+    }
+  }
 }
 
 
