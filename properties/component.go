@@ -33,6 +33,7 @@ type Component struct {
 	Icon string `json:"icon"`
 	Label string `json:"label"`
 	Properties [] PropertyType `json:"properties"`
+	DisplayNameTemplate string `json:"displayNameTemplate"`
 }
 
 type PropertyOptionsComponent struct {

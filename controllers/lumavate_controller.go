@@ -211,7 +211,7 @@ func (this *LumavateController) GetComponentsWithTag(tag string) []*properties.C
   for _, component := range this.Components {
     for _, t := range component.Tags {
       if t == tag {
-        components = append(components, &properties.Component{tag, component.Section, component.Type, "", component.Icon, component.Label, component.Properties})
+        components = append(components, &properties.Component{tag, component.Section, component.Type, "", component.Icon, component.Label, component.Properties, ""})
       }
     }
   }
