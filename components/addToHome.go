@@ -23,9 +23,9 @@ func GetAddToHomeProperties() [] properties.PropertyType {
   props = append(props, &properties.PropertyNumeric{
       &properties.PropertyBase{"displayCount", "Add To Home Screen", "Prompt Time Configuration", "Display Count", "Display Count is the number of days you would like this prompt to appear until a user saves the app to their home screen. By default, the prompt message will display once per day until the user saves the app to their home screen. If you would like the prompt message to display until action is taken, set Display Count to 0."}, 0, properties.PropertyOptionsNumeric{ Min: 0, Max: 30}})
 
-  props = append(props, &properties.PropertyText{
+  props = append(props, &properties.PropertyTranslatedText{
     	&properties.PropertyBase{"message", "Add To Home Screen", "Prompt Message", "Message", "This is the message that will be displayed to your users. Your message should be concise and explain how to add the app to the home screen. The prompt message will display your fav icon—configured in the App Manifest on your Home Page."},
-    	"Add this app to your home screen!", properties.PropertyTranslatedText{}})
+    	"Add this app to your home screen!", properties.PropertyOptionsText{}})
 
   return props
 }
