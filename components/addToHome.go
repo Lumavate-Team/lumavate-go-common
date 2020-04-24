@@ -25,7 +25,7 @@ func GetAddToHomeProperties() [] properties.PropertyType {
 
   props = append(props, &properties.PropertyText{
     	&properties.PropertyBase{"message", "Add To Home Screen", "Prompt Message", "Message", "This is the message that will be displayed to your users. Your message should be concise and explain how to add the app to the home screen. The prompt message will display your fav icon—configured in the App Manifest on your Home Page."},
-    	"Add this app to your home screen!", properties.PropertyOptionsText{}})
+    	"Add this app to your home screen!", properties.PropertyTranslatedText{}})
 
   return props
 }
