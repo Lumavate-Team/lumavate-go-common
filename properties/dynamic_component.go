@@ -9,7 +9,7 @@ import (
 type DynamicComponent struct {
   *PropertyBase
   ComponentTagName string `json:"componentTagName"`
-  AllowMultiple `json:"allowMultiple"`
+  AllowMultiple bool `json:"allowMultiple"`
 }
 
 func (p *DynamicComponent) MarshalJSON() (b []byte, e error) {
