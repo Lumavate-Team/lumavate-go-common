@@ -5,9 +5,14 @@ import (
   "encoding/json"
 )
 
+type TagModifierOptions struct {
+  TagType string `json:"tagType"`
+  Properties []*PropertyType `json:"properties"`
+}
+
 type PropertyTagModifier struct {
-  TagName string `json:"tagName"`
-	Properties [] PropertyType `json:"properties"`
+  *PropertyBase
+  Options TagModifierOptions `json:"options"`
 }
 
 func (p *PropertyTagModifier) MarshalJSON() (b []byte, e error) {
