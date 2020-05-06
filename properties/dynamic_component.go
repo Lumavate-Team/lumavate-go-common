@@ -1,5 +1,3 @@
-
-
 package properties
 
 import (
@@ -13,9 +11,7 @@ type DynamicOptions struct {
 }
 type DynamicComponent struct {
   *PropertyBase
-  ComponentTagName string `json:"componentTagName"`
-  AllowMultiple bool `json:"allowMultiple"`
-  Options DynamicOptions
+	Options *DynamicOptions `json:"options"`
 }
 
 func (p *DynamicComponent) MarshalJSON() (b []byte, e error) {
