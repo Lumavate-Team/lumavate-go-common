@@ -12,7 +12,7 @@ type TagModifierOptions struct {
 
 type PropertyTagModifier struct {
   *PropertyBase
-  Options TagModifierOptions `json:"options"`
+  Options *TagModifierOptions `json:"options"`
 }
 
 func (p *PropertyTagModifier) MarshalJSON() (b []byte, e error) {
