@@ -7,7 +7,7 @@ import (
 
 type TagModifierOptions struct {
   TagType string `json:"tagType"`
-  Properties []PropertyType `json:"properties"`
+  Properties []*PropertyType `json:"properties"`
 }
 
 type PropertyTagModifier struct {
