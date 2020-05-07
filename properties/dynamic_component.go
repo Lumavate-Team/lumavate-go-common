@@ -6,8 +6,9 @@ import (
 
 type DynamicOptions struct {
   ComponentTagName string `json:"componentTagName"`
-  AllowMultiple bool `json:"allowMultiple"`
 	Components [] *Component `json:"components"`
+  TagModifiers []PropertyType `json:"properties"`
+
 }
 type DynamicComponent struct {
   *PropertyBase
@@ -26,3 +27,19 @@ func (p *DynamicComponent) MarshalJSON() (b []byte, e error) {
 	})
 }
 
+type DynamicComponents struct {
+  *PropertyBase
+  Options *DynamicOptions `json:"options"`
+}
+
+func (p *DynamicComponent) MarshalJSON() (b []byte, e error) {
+  type Copy DynamicComponent
+
+	return json.Marshal(&struct{
+		Type string `json:"type"`
+		*Copy
+	}{
+    "dynamic-components",
+		(*Copy)(p),
+	})
+}
