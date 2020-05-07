@@ -7,7 +7,7 @@ import (
 type DynamicOptions struct {
   ComponentTagName string `json:"componentTagName"`
 	Components [] *Component `json:"components"`
-  TagModifiers []PropertyType `json:"properties"`
+  TagModifiers []PropertyType `json:"tagModifiers"`
 
 }
 type DynamicComponent struct {
