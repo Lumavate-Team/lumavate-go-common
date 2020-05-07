@@ -32,7 +32,7 @@ type DynamicComponents struct {
   Options *DynamicOptions `json:"options"`
 }
 
-func (p *DynamicComponent) MarshalJSON() (b []byte, e error) {
+func (p *DynamicComponents) MarshalJSON() (b []byte, e error) {
   type Copy DynamicComponent
 
 	return json.Marshal(&struct{
