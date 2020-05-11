@@ -5,7 +5,7 @@ import (
 )
 
 type DynamicOptions struct {
-	Categories [] string `json"categories"`
+  Categories [] string `json:"categories"`
 	Components [] *Component `json:"components"`
   TagModifiers []PropertyType `json:"tagModifiers"`
 
