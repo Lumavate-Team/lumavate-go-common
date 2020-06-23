@@ -8,6 +8,8 @@ type DynamicOptions struct {
   Categories [] string `json:"categories"`
 	Components [] *Component `json:"components"`
   TagModifiers []PropertyType `json:"tagModifiers"`
+  Position string `json:"position"`
+
 
 }
 type DynamicComponent struct {
