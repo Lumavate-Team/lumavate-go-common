@@ -9,9 +9,9 @@ type DynamicOptions struct {
 	Components [] *Component `json:"components"`
   TagModifiers []PropertyType `json:"tagModifiers"`
   Position string `json:"position"`
-
-
+  IsPrimary bool `json:"isPrimary"`
 }
+
 type DynamicComponent struct {
   *PropertyBase
 	Options *DynamicOptions `json:"options"`
