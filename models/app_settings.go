@@ -2,7 +2,7 @@ package models
 
 type AppSettingsStruct struct {
   InstanceName      string                        `json:"instance__name"`
-  PageType          common_models.PageTypeStruct  `json:"pageType"`
+  PageType          PageTypeStruct  `json:"pageType"`
   DirectIncludes    [] string                     `json:"__directIncludes"`
   DirectCssIncludes [] string                     `json:"__directCssIncludes"`
   Header ComponentStruct `json:"header"`
