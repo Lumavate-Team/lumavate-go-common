@@ -25,7 +25,7 @@ func HasPrefix(in string, test string) (out bool){
   return strings.HasPrefix(in, test)
 }
 func Replace(input, from,to string) string {
- \return strings.Replace(input,from,to, -1)
+ return strings.Replace(input,from,to, -1)
 }
 
 func Esm(src string)(out string){
@@ -41,11 +41,11 @@ func EscapeSpecial(src string)string{
 }
 
 func ComponentHtml(in component_data.ComponentData) (out template.HTML) {
-	out = template.HTML(in.GetHtml())
-	return
+  out = template.HTML(in.GetHtml())
+  return
 }
 
 func ModalHtml(in models.ComponentStruct) (out template.HTML) {
-	out = template.HTML(in.GetHtml())
-	return
+  out = template.HTML(in.GetHtml()) 
+  return
 }
