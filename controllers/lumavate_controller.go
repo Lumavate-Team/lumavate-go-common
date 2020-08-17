@@ -192,6 +192,8 @@ func (this *LumavateController) MustHaveValidSingleUseToken() {
   }
 }
 
+
+/* V2 functionality below.*/
 func (this *LumavateController) LoadAllComponentSets() {
   body, _ := this.LumavateGet("/pwa/v1/component-sets")
   cs := ComponentSetRequest{}

@@ -14,7 +14,9 @@ type WidgetData struct {
       }
       ActivationData ActivationStruct
       Session map[string]interface{}
+      PlatformVersion string 
       WidgetData json.RawMessage
+      BrandingData json.RawMessage
       DomainData struct {
         Domain string `json:"domain"`
         IsTest bool `json:"isTest"`
