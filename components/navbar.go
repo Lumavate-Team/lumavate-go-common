@@ -9,7 +9,7 @@ import (
  */
 func GetNavBarProperty() *properties.PropertyComponent {
   return &properties.PropertyComponent{
-    &properties.PropertyBase{"navBar", "Nav Bar", "", "Nav Bar", ""},
+    &properties.PropertyBase{"navBar", "Nav Bar", "", "Nav Bar", "", ""},
     GetNavBarComponent(), &properties.PropertyOptionsComponent{[] string {"navBar"}, [] *properties.Component {GetNavBarComponent()} },
   }
 }
@@ -19,7 +19,7 @@ func GetNavBarProperty() *properties.PropertyComponent {
  */
 func GetNavBarItemsProperty() *properties.PropertyComponents {
   return &properties.PropertyComponents{
-    &properties.PropertyBase{"navBarItems", "Nav Bar", "Nav Bar Items", "Nav Bar", ""},
+    &properties.PropertyBase{"navBarItems", "Nav Bar", "Nav Bar Items", "Nav Bar", "", ""},
     [] *properties.Component {}, &properties.PropertyOptionsComponent{[] string {"navBarItem"}, [] *properties.Component {GetNavBarItemComponent()} },
   }
 }
