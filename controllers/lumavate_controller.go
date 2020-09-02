@@ -227,13 +227,13 @@ func (this *LumavateController) GetDynamicComponentProperty(tag, name, classific
 
   if len(components) == 0 {
     return &properties.PropertyComponent{
-      &properties.PropertyBase{tag, classification, section, label, help},
+      &properties.PropertyBase{tag, classification, section, label, help, ""},
       &properties.Component{}, &properties.PropertyOptionsComponent{[]string{}, []*properties.Component{}},
     }
   }
 
   return &properties.PropertyComponent{
-    &properties.PropertyBase{tag, classification, section, label, help},
+    &properties.PropertyBase{tag, classification, section, label, help, ""},
     components[0], &properties.PropertyOptionsComponent{[]string{tag}, components},
   }
 }
@@ -244,13 +244,13 @@ func (this *LumavateController) GetDynamicComponentsProperty(tag, name, classifi
 
   if len(components) == 0 {
     return &properties.PropertyComponents{
-      &properties.PropertyBase{name, classification, section, label, help},
+      &properties.PropertyBase{name, classification, section, label, help, ""},
       []*properties.Component{}, &properties.PropertyOptionsComponent{[]string{}, []*properties.Component{}},
     }
   }
 
   return &properties.PropertyComponents{
-    &properties.PropertyBase{name, classification, section, label, help},
+    &properties.PropertyBase{name, classification, section, label, help, ""},
     []*properties.Component{}, &properties.PropertyOptionsComponent{[]string{tag}, components},
   }
 }
