@@ -10,5 +10,5 @@ type ComponentStruct struct {
 }
 
 func (this ComponentStruct) GetHtml() string {
-	return fmt.Sprintf(`<div>%v</div>=`, this.ComponentHtml)
+	return fmt.Sprintf(`<div>%v</div>`, this.ComponentHtml)
 }
