@@ -39,6 +39,7 @@ type Component struct {
 type PropertyOptionsComponent struct {
 	Categories [] string `json:"categories"`
 	Components [] *Component `json:"components"`
+  Required bool `json:"required"`
 }
 
 type PropertyComponent struct {
