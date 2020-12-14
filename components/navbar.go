@@ -20,7 +20,7 @@ func GetNavBarProperty() *properties.PropertyComponent {
 func GetNavBarItemsProperty() *properties.PropertyComponents {
   return &properties.PropertyComponents{
     &properties.PropertyBase{"navBarItems", "Nav Bar", "Nav Bar Items", "Nav Bar", "", ""},
-    [] *properties.Component {}, &properties.PropertyOptionsComponent{[] string {"navBarItem"}, [] *properties.Component {GetNavBarItemComponent()}, false },
+    [] *properties.Component {}, &properties.PropertyOptionsComponents{[] string {"navBarItem"}, [] *properties.Component {GetNavBarItemComponent()} },
   }
 }
 

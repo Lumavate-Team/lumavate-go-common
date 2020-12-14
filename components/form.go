@@ -9,7 +9,7 @@ import (
 func GetFormItemsProperty() *properties.PropertyComponents {
   return &properties.PropertyComponents {
     &properties.PropertyBase{"formItems", "Form", "Field Types", "Field Types", "", ""},
-    [] *properties.Component{}, &properties.PropertyOptionsComponent{[] string {"formText", "formDate", "formCheckbox", "formAddress", "formEmailAddress", "formHidden"}, [] *properties.Component {GetTextFormComponent(), GetDateFormComponent(), GetCheckboxFormComponent(), GetAddressFormComponent(), GetEmailFormComponent(), GetHiddenFormComponent()}, false },
+    [] *properties.Component{}, &properties.PropertyOptionsComponents{[] string {"formText", "formDate", "formCheckbox", "formAddress", "formEmailAddress", "formHidden"}, [] *properties.Component {GetTextFormComponent(), GetDateFormComponent(), GetCheckboxFormComponent(), GetAddressFormComponent(), GetEmailFormComponent(), GetHiddenFormComponent()}},
   }
 }
 
