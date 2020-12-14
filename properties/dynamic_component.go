@@ -11,10 +11,14 @@ type DynamicOptions struct {
   Position string `json:"position"`
   IsPrimary bool `json:"isPrimary"`
 }
+type DynamicComponentOptions struct {
+  DynamicOptions
+  Required bool `json:"isRequired"`
+}
 
 type DynamicComponent struct {
   *PropertyBase
-	Options *DynamicOptions `json:"options"`
+	Options *DynamicComponentOptions `json:"options"`
 }
 
 func (p *DynamicComponent) MarshalJSON() (b []byte, e error) {
@@ -35,7 +39,7 @@ type DynamicComponents struct {
 }
 
 func (p *DynamicComponents) MarshalJSON() (b []byte, e error) {
-  type Copy DynamicComponent
+  type Copy DynamicComponents
 
 	return json.Marshal(&struct{
 		Type string `json:"type"`
