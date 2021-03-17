@@ -7,6 +7,7 @@ type AppSettingsStruct struct {
   DirectCssIncludes [] string                     `json:"__directCssIncludes"`
   Header ComponentStruct `json:"header"`
   Footer ComponentStruct `json:"footer"`
+  PoweredBy bool `json:"poweredBy"`
   Fab ComponentStruct `json:"fab"`
 
   BodyMaxWidth int `json:"bodyMaxWidth"`
