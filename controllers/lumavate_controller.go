@@ -192,6 +192,8 @@ func (this *LumavateController) MustHaveValidSingleUseToken() {
   }
 }
 
+
+/* V2 functionality below.*/
 func (this *LumavateController) LoadAllComponentSets() {
   body, _ := this.LumavateGet("/pwa/v1/component-sets")
   cs := ComponentSetRequest{}
@@ -225,14 +227,14 @@ func (this *LumavateController) GetDynamicComponentProperty(tag, name, classific
 
   if len(components) == 0 {
     return &properties.PropertyComponent{
-      &properties.PropertyBase{tag, classification, section, label, help},
-      &properties.Component{}, &properties.PropertyOptionsComponent{[]string{}, []*properties.Component{}},
+      &properties.PropertyBase{tag, classification, section, label, help, ""},
+      &properties.Component{}, &properties.PropertyOptionsComponent{[]string{}, []*properties.Component{}, false},
     }
   }
 
   return &properties.PropertyComponent{
-    &properties.PropertyBase{tag, classification, section, label, help},
-    components[0], &properties.PropertyOptionsComponent{[]string{tag}, components},
+    &properties.PropertyBase{tag, classification, section, label, help, ""},
+    components[0], &properties.PropertyOptionsComponent{[]string{tag}, components, false},
   }
 }
 
@@ -242,13 +244,13 @@ func (this *LumavateController) GetDynamicComponentsProperty(tag, name, classifi
 
   if len(components) == 0 {
     return &properties.PropertyComponents{
-      &properties.PropertyBase{name, classification, section, label, help},
-      []*properties.Component{}, &properties.PropertyOptionsComponent{[]string{}, []*properties.Component{}},
+      &properties.PropertyBase{name, classification, section, label, help, ""},
+      []*properties.Component{}, &properties.PropertyOptionsComponents{[]string{}, []*properties.Component{}},
     }
   }
 
   return &properties.PropertyComponents{
-    &properties.PropertyBase{name, classification, section, label, help},
-    []*properties.Component{}, &properties.PropertyOptionsComponent{[]string{tag}, components},
+    &properties.PropertyBase{name, classification, section, label, help, ""},
+    []*properties.Component{}, &properties.PropertyOptionsComponents{[]string{tag}, components},
   }
 }

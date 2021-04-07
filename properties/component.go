@@ -39,6 +39,7 @@ type Component struct {
 type PropertyOptionsComponent struct {
 	Categories [] string `json:"categories"`
 	Components [] *Component `json:"components"`
+  Required bool `json:"isRequired"`
 }
 
 type PropertyComponent struct {
@@ -67,10 +68,15 @@ func (p *PropertyComponent) MarshalJSON() (b []byte, e error) {
 	})
 }
 
+type PropertyOptionsComponents struct {
+	Categories [] string `json:"categories"`
+	Components [] *Component `json:"components"`
+}
+
 type PropertyComponents struct {
 	*PropertyBase
 	Default [] *Component `json:"default"`
-	Options *PropertyOptionsComponent `json:"options"`
+	Options *PropertyOptionsComponents `json:"options"`
 }
 
 func (p *PropertyComponents) MarshalJSON() (b []byte, e error) {
