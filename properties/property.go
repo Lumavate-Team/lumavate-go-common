@@ -9,7 +9,8 @@ type PropertyBase struct {
 	Section string `json:"section"`
 	Label string `json:"label"`
 	HelpText string `json:"helpText"`
-  HelpId string `json:"helpId,omitempty"`
+  	HelpId string `json:"helpId,omitempty"`
+	HeaderColor string `json:"headerColor"`
 }
 
 
