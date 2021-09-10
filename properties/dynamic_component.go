@@ -10,6 +10,7 @@ type DynamicOptions struct {
   TagModifiers []PropertyType `json:"tagModifiers"`
   Position string `json:"position"`
   IsPrimary bool `json:"isPrimary"`
+  HeaderColor string `json:"headerColor"`
 }
 type DynamicComponentOptions struct {
   DynamicOptions
