@@ -160,6 +160,17 @@ func (this *LumavateController) NoAuthRedirect() {
 }
 
 func (this *LumavateController) GetWidgetDataUrl() string {
+  url := this.Ctx.Input.URI()
+  parts := strings.Split(url, "?")
+  query := ""
+  if len(parts) > 1 {
+    query = parts[1]
+    return fmt.Sprintf("/pwa/v1/widget-instance-data/%s?%s",
+      this.Ctx.Input.Param(":wid"),
+      query,
+    )
+  }
+
   return fmt.Sprintf("/pwa/v1/widget-instance-data/%s",
     this.Ctx.Input.Param(":wid"),
   )
