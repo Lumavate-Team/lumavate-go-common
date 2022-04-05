@@ -9,6 +9,7 @@ type AppSettingsStruct struct {
   Footer ComponentStruct `json:"footer"`
   PoweredBy bool `json:"poweredBy"`
   Fab ComponentStruct `json:"fab"`
+  CookieManagement ComponentStruct `json:"cookieManagement"`
 
   BodyMaxWidth int `json:"bodyMaxWidth"`
   BodyMaxWidthStr string `json:"bodyMaxWidthStr"`
