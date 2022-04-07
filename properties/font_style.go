@@ -1,4 +1,3 @@
-
 package properties
 
 import (
@@ -13,6 +12,7 @@ type FontStyleDefault struct {
 	FontFamily string `json:"fontFamily"`
 	FontSize int `json:"fontSize"`
 	FontColor string `json:"fontColor"`
+  Underline bool `json:"underline"`
 }
 
 type PropertyFontStyle struct {

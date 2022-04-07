@@ -120,7 +120,6 @@ func (this *LumavateController) LumavateGetData() models.WidgetData {
     response.Payload.Data.TokenData = this.ParseToken()
     return response
   case "401":
-    fmt.Println("401")
     this.NoAuthRedirect()
   default:
     this.Abort(status)
