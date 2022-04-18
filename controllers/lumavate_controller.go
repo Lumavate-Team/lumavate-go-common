@@ -264,3 +264,69 @@ func (this *LumavateController) GetDynamicComponentsProperty(tag, name, classifi
     []*properties.Component{}, &properties.PropertyOptionsComponents{[]string{tag}, components},
   }
 }
+
+func (this *LumavateController) InitBranding(instanceData *models.AppSettingsStruct){
+  instanceData.MainFontFamily = this.convertFontFamily(instanceData.MainFontFamily)
+  instanceData.SecondaryFontFamily = this.convertFontFamily(instanceData.SecondaryFontFamily)
+  instanceData.TertiaryFontFamily = this.convertFontFamily(instanceData.TertiaryFontFamily)
+
+  if instanceData.BodyMaxWidth != 0 {
+    instanceData.BodyMaxWidthStr = fmt.Sprintf("%vpx", instanceData.BodyMaxWidth)
+  } else {
+    instanceData.BodyMaxWidthStr = "100%"
+  }
+}
+
+func (this *LumavateController) InitFontStyles(instanceData *models.AppSettingsStruct) [] models.FontStyleDisplayStruct {
+  styles := [] models.FontStyleDisplayStruct{}
+
+  styles = append(styles, this.initFontStyle("h1", instanceData.H1FontStyle))
+  styles = append(styles, this.initFontStyle("h2", instanceData.H2FontStyle))
+  styles = append(styles, this.initFontStyle("h3", instanceData.H3FontStyle))
+  styles = append(styles, this.initFontStyle("h4", instanceData.H4FontStyle))
+  styles = append(styles, this.initFontStyle("paragraph", instanceData.ParagraphFontStyle))
+  styles = append(styles, this.initFontStyle("link", instanceData.LinkFontStyle))
+  styles = append(styles, this.initFontStyle("button", instanceData.ButtonFontStyle))
+
+  return styles
+
+}
+
+// Lets find a way to do this better.  Maybe we go back to do base components tied to page layout and flip based on mode
+// For now, it's a hardcoded list of Lumavate Component Sets main DirectIncludes file names.•
+func (this *LumavateController) ContainsIonicLibrary(includes []string) bool{
+
+  for _, path := range includes {
+    path_split := strings.Split(path, "/")
+    file := path_split[len(path_split)-1]
+    if strings.Contains(file, "luma-ion"){
+      return true
+    }
+  }
+  return false
+
+}
+
+func (this *LumavateController) convertFontFamily(fontFamily string) string {
+  if !(strings.HasPrefix(fontFamily, "custom:") || strings.HasPrefix(fontFamily, "standard:") || strings.HasPrefix(fontFamily, "google:")) {
+    return "google:" + fontFamily
+  }
+  return fontFamily
+}
+
+func (this *LumavateController) initFontStyle(key string, fontStyle *models.FontStyleStruct) models.FontStyleDisplayStruct{
+  underlineValue := "none"
+  if fontStyle.FontUnderline {
+    underlineValue = "underline"
+  }
+
+  fmt.Println(fontStyle.FontFamily)
+  fmt.Println(fontStyle.FontColor)
+  return models.FontStyleDisplayStruct{
+    Name: key,
+    FontColor: fontStyle.FontColor,
+    FontFamily: fontStyle.FontFamily,
+    FontSize: fmt.Sprint(fontStyle.FontSize, "px"),
+    FontUnderline: underlineValue,
+  }
+}

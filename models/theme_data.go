@@ -14,18 +14,26 @@ type ThemeDataStruct struct {
   MediumColor string `json:"mediumColor"`
   LightColor string `json:"lightColor"`
 
-  Heading1FontStyle FontStyleStruct `json:"h1FontStyle"`
-  Heading2FontStyle FontStyleStruct `json:"h2FontStyle"`
-  Heading3FontStyle FontStyleStruct `json:"h3FontStyle"`
-  Heading4FontStyle FontStyleStruct `json:"h4FontStyle"`
-  ParagraphFontStyle FontStyleStruct `json:"paragraphFontStyle"`
-  LinkFontStyle FontStyleStruct `json:"linkFontStyle"`
-  ButtonFontStyle FontStyleStruct `json:"buttonFontStyle"`
+  H1FontStyle *FontStyleStruct `json:"h1FontStyle"`
+  H2FontStyle *FontStyleStruct `json:"h2FontStyle"`
+  H3FontStyle *FontStyleStruct `json:"h3FontStyle"`
+  H4FontStyle *FontStyleStruct `json:"h4FontStyle"`
+  ParagraphFontStyle *FontStyleStruct `json:"paragraphFontStyle"`
+  LinkFontStyle *FontStyleStruct `json:"linkFontStyle"`
+  ButtonFontStyle *FontStyleStruct `json:"buttonFontStyle"`
 
 }
 
 type FontStyleStruct struct {
   FontColor string `json:"fontColor"`
   FontFamily string `json:"fontFamily"`
-
+  FontSize int `json:"fontSize"`
+  FontUnderline bool `json:"fontUnderline"`
+}
+type FontStyleDisplayStruct struct {
+  Name string `json:"name"`
+  FontColor string `json:"fontColor"`
+  FontFamily string `json:"fontFamily"`
+  FontSize string `json:"fontSize"`
+  FontUnderline string `json:"fontUnderline"`
 }
