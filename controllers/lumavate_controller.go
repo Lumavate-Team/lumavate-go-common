@@ -120,7 +120,6 @@ func (this *LumavateController) LumavateGetData() models.WidgetData {
     response.Payload.Data.TokenData = this.ParseToken()
     return response
   case "401":
-    fmt.Println("401")
     this.NoAuthRedirect()
   default:
     this.Abort(status)
@@ -264,4 +263,74 @@ func (this *LumavateController) GetDynamicComponentsProperty(tag, name, classifi
     &properties.PropertyBase{name, classification, section, label, help, ""},
     []*properties.Component{}, &properties.PropertyOptionsComponents{[]string{tag}, components},
   }
+}
+
+func (this *LumavateController) InitBranding(instanceData *models.AppSettingsStruct){
+  instanceData.MainFontFamily = this.convertFontFamily(instanceData.MainFontFamily)
+  instanceData.SecondaryFontFamily = this.convertFontFamily(instanceData.SecondaryFontFamily)
+  instanceData.TertiaryFontFamily = this.convertFontFamily(instanceData.TertiaryFontFamily)
+
+  if instanceData.BodyMaxWidth != 0 {
+    instanceData.BodyMaxWidthStr = fmt.Sprintf("%vpx", instanceData.BodyMaxWidth)
+  } else {
+    instanceData.BodyMaxWidthStr = "100%"
+  }
+}
+
+func (this *LumavateController) InitFontStyles(instanceData *models.AppSettingsStruct) [] models.FontStyleDisplayStruct {
+  styles := [] models.FontStyleDisplayStruct{
+  this.initFontStyle("h1", instanceData.H1FontStyle),
+  this.initFontStyle("h2", instanceData.H2FontStyle),
+  this.initFontStyle("h3", instanceData.H3FontStyle),
+  this.initFontStyle("h4", instanceData.H4FontStyle),
+  this.initFontStyle("paragraph", instanceData.ParagraphFontStyle),
+  this.initFontStyle("link", instanceData.LinkFontStyle),
+  this.initFontStyle("button", instanceData.ButtonFontStyle)}
+  return styles
+
+}
+
+// Lets find a way to do this better.  Maybe we go back to do base components tied to page layout and flip based on mode
+// For now, it's a hardcoded list of Lumavate Component Sets main DirectIncludes file names.•
+func (this *LumavateController) ContainsIonicLibrary(includes []string) bool{
+
+  for _, path := range includes {
+    path_split := strings.Split(path, "/")
+    file := path_split[len(path_split)-1]
+    if strings.Contains(file, "luma-ion"){
+      return true
+    }
+  }
+  return false
+
+}
+
+func (this *LumavateController) convertFontFamily(fontFamily string) string {
+  if !(strings.HasPrefix(fontFamily, "custom:") || strings.HasPrefix(fontFamily, "standard:") || strings.HasPrefix(fontFamily, "google:")) {
+    return "google:" + fontFamily
+  }
+  return fontFamily
+}
+
+func (this *LumavateController) initFontStyle(key string, fontStyle *models.FontStyleStruct) models.FontStyleDisplayStruct{
+  underlineValue := "none"
+  if fontStyle.FontUnderline {
+    underlineValue = "underline"
+  }
+
+  return models.FontStyleDisplayStruct{
+    FontColor: this.trimVar(fontStyle.FontColor),
+    FontFamily: this.trimVar(fontStyle.FontFamily),
+    FontSize: fmt.Sprint(fontStyle.FontSize, "px"),
+    FontUnderline: underlineValue,
+    Name: key,
+  }
+}
+
+// Removes the var(--x) wrapper.
+// TODO: Convert to regex if time allows
+func (this *LumavateController) trimVar(cssVarRef string) string {
+  trimmedValue := strings.TrimPrefix(cssVarRef, "var(--")
+  trimmedValue = strings.TrimSuffix(trimmedValue, ")")
+  return trimmedValue
 }
