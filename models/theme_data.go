@@ -21,19 +21,19 @@ type ThemeDataStruct struct {
   ParagraphFontStyle *FontStyleStruct `json:"paragraphFontStyle"`
   LinkFontStyle *FontStyleStruct `json:"linkFontStyle"`
   ButtonFontStyle *FontStyleStruct `json:"buttonFontStyle"`
-
 }
 
 type FontStyleStruct struct {
   FontColor string `json:"fontColor"`
   FontFamily string `json:"fontFamily"`
   FontSize int `json:"fontSize"`
-  FontUnderline bool `json:"fontUnderline"`
+  FontUnderline bool `json:"underline"`
 }
+
 type FontStyleDisplayStruct struct {
-  Name string `json:"name"`
   FontColor string `json:"fontColor"`
   FontFamily string `json:"fontFamily"`
   FontSize string `json:"fontSize"`
-  FontUnderline string `json:"fontUnderline"`
+  FontUnderline string `json:"underline"`
+  Name string `json:"name"`
 }

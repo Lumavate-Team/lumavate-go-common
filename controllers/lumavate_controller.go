@@ -278,16 +278,14 @@ func (this *LumavateController) InitBranding(instanceData *models.AppSettingsStr
 }
 
 func (this *LumavateController) InitFontStyles(instanceData *models.AppSettingsStruct) [] models.FontStyleDisplayStruct {
-  styles := [] models.FontStyleDisplayStruct{}
-
-  styles = append(styles, this.initFontStyle("h1", instanceData.H1FontStyle))
-  styles = append(styles, this.initFontStyle("h2", instanceData.H2FontStyle))
-  styles = append(styles, this.initFontStyle("h3", instanceData.H3FontStyle))
-  styles = append(styles, this.initFontStyle("h4", instanceData.H4FontStyle))
-  styles = append(styles, this.initFontStyle("paragraph", instanceData.ParagraphFontStyle))
-  styles = append(styles, this.initFontStyle("link", instanceData.LinkFontStyle))
-  styles = append(styles, this.initFontStyle("button", instanceData.ButtonFontStyle))
-
+  styles := [] models.FontStyleDisplayStruct{
+  this.initFontStyle("h1", instanceData.H1FontStyle),
+  this.initFontStyle("h2", instanceData.H2FontStyle),
+  this.initFontStyle("h3", instanceData.H3FontStyle),
+  this.initFontStyle("h4", instanceData.H4FontStyle),
+  this.initFontStyle("paragraph", instanceData.ParagraphFontStyle),
+  this.initFontStyle("link", instanceData.LinkFontStyle),
+  this.initFontStyle("button", instanceData.ButtonFontStyle)}
   return styles
 
 }
@@ -320,13 +318,19 @@ func (this *LumavateController) initFontStyle(key string, fontStyle *models.Font
     underlineValue = "underline"
   }
 
-  fmt.Println(fontStyle.FontFamily)
-  fmt.Println(fontStyle.FontColor)
   return models.FontStyleDisplayStruct{
-    Name: key,
-    FontColor: fontStyle.FontColor,
-    FontFamily: fontStyle.FontFamily,
+    FontColor: this.trimVar(fontStyle.FontColor),
+    FontFamily: this.trimVar(fontStyle.FontFamily),
     FontSize: fmt.Sprint(fontStyle.FontSize, "px"),
     FontUnderline: underlineValue,
+    Name: key,
   }
+}
+
+// Removes the var(--x) wrapper.
+// TODO: Convert to regex if time allows
+func (this *LumavateController) trimVar(cssVarRef string) string {
+  trimmedValue := strings.TrimPrefix(cssVarRef, "var(--")
+  trimmedValue = strings.TrimSuffix(trimmedValue, ")")
+  return trimmedValue
 }
