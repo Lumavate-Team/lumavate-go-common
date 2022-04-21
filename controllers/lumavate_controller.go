@@ -266,10 +266,6 @@ func (this *LumavateController) GetDynamicComponentsProperty(tag, name, classifi
 }
 
 func (this *LumavateController) InitBranding(instanceData *models.AppSettingsStruct){
-  instanceData.MainFontFamily = this.convertFontFamily(instanceData.MainFontFamily)
-  instanceData.SecondaryFontFamily = this.convertFontFamily(instanceData.SecondaryFontFamily)
-  instanceData.TertiaryFontFamily = this.convertFontFamily(instanceData.TertiaryFontFamily)
-
   if instanceData.BodyMaxWidth != 0 {
     instanceData.BodyMaxWidthStr = fmt.Sprintf("%vpx", instanceData.BodyMaxWidth)
   } else {
@@ -303,13 +299,6 @@ func (this *LumavateController) ContainsIonicLibrary(includes []string) bool{
   }
   return false
 
-}
-
-func (this *LumavateController) convertFontFamily(fontFamily string) string {
-  if !(strings.HasPrefix(fontFamily, "custom:") || strings.HasPrefix(fontFamily, "standard:") || strings.HasPrefix(fontFamily, "google:")) {
-    return "google:" + fontFamily
-  }
-  return fontFamily
 }
 
 func (this *LumavateController) initFontStyle(key string, fontStyle *models.FontStyleStruct) models.FontStyleDisplayStruct{
