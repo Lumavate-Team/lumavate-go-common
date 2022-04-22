@@ -6,6 +6,8 @@ import (
 	"html/template"
   "strings"
   "regexp"
+  "fmt"
+  "net/url"
 )
 
 func SafeCss(in string) (out template.CSS) {
@@ -48,4 +50,19 @@ func ComponentHtml(in component_data.ComponentData) (out template.HTML) {
 func ModalHtml(in models.ComponentStruct) (out template.HTML) {
   out = template.HTML(in.GetHtml()) 
   return
+}
+
+// Build up google font query string parameter and include normal(n),bold(b),italic(i), and bold italic(bi) font weights
+func GoogleFontParam(instanceData models.AppSettingsStruct) *url.URL{
+  font := fmt.Sprintf("%v:n,b,i,bi", strings.Replace(instanceData.MainFontFamily, " ", "+", -1))
+  if instanceData.SecondaryFontFamily != instanceData.MainFontFamily {
+    font = fmt.Sprintf("%v|%v:n,b,i,bi", font, strings.Replace(instanceData.SecondaryFontFamily, " ", "+", -1))
+  }
+  if (instanceData.TertiaryFontFamily != instanceData.SecondaryFontFamily) && (instanceData.TertiaryFontFamily != instanceData.MainFontFamily) {
+    font = fmt.Sprintf("%v|%v:n,b,i,bi", font, strings.Replace(instanceData.TertiaryFontFamily, " ", "+", -1))
+  }
+  
+  url, _ := url.Parse("https://fonts.googleapis.com/css")
+  url.RawQuery = fmt.Sprintf("family=%v", font)
+  return url
 }

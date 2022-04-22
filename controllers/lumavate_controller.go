@@ -301,6 +301,13 @@ func (this *LumavateController) ContainsIonicLibrary(includes []string) bool{
 
 }
 
+func (this *LumavateController) convertFontFamily(fontFamily string) string {
+  if !(strings.HasPrefix(fontFamily, "custom:") || strings.HasPrefix(fontFamily, "standard:") || strings.HasPrefix(fontFamily, "google:")) {
+    return "google:" + fontFamily
+  }
+  return fontFamily
+}
+
 func (this *LumavateController) initFontStyle(key string, fontStyle *models.FontStyleStruct) models.FontStyleDisplayStruct{
   underlineValue := "none"
   if fontStyle.FontUnderline {
