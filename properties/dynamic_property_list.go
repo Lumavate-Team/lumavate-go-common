@@ -5,7 +5,7 @@ import (
 )
 
 type DynamicPropertyOptions struct {
-	PropertyDef string `json:"propertyDef"`
+	PropertyDef []byte `json:"propertyDef"`
 	OnSettings bool `json:"onSettings"`
 	Max int `json:"max"`
 	FullHeight bool `json:"fullHeight"`
