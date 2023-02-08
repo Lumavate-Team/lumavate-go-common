@@ -12,4 +12,9 @@ type PropertyBase struct {
   	HelpId string `json:"helpId,omitempty"`
 }
 
+type TypePropertyBase struct {
+	*PropertyBase
+	Type string `json:"type"`
+}
+
 
