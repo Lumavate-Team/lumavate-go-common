@@ -33,7 +33,6 @@ type WidgetData struct {
           Url string
         }
       }
-      DataSources json.RawMessage
     }
   }
 }
