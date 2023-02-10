@@ -9,6 +9,7 @@ type DynamicPropertyOptions struct {
 	OnSettings bool `json:"onSettings"`
 	Max int `json:"max"`
 	FullHeight bool `json:"fullHeight"`
+	UseStandardView bool `json:"useStandardView"`
 	Default map[string]string `json:"default"`
 }
 
