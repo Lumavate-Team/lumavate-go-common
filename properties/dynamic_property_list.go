@@ -11,6 +11,8 @@ type DynamicPropertyOptions struct {
 	FullHeight bool `json:"fullHeight"`
 	UseStandardView bool `json:"useStandardView"`
 	Default map[string]string `json:"default"`
+	AllowDelete bool `json:"allowDelete"`
+	ShowLabel bool `json:"showLabel"`
 }
 
 type DynamicPropertyList struct {
