@@ -13,6 +13,7 @@ type DynamicPropertyOptions struct {
 	Default map[string]string `json:"default"`
 	AllowDelete bool `json:"allowDelete"`
 	ShowLabel bool `json:"showLabel"`
+	ItemName string `json:"itemName"`
 }
 
 type DynamicPropertyList struct {
