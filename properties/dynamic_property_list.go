@@ -14,6 +14,7 @@ type DynamicPropertyOptions struct {
 	AllowDelete bool `json:"allowDelete"`
 	ShowLabel bool `json:"showLabel"`
 	ItemName string `json:"itemName"`
+	DeleteConfirmation string `json:"deleteConfirmation"`
 }
 
 type DynamicPropertyList struct {
