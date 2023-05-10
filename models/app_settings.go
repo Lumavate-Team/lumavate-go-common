@@ -1,5 +1,10 @@
 package models
 
+import (
+  "html/template"
+)
+
+
 type AppSettingsStruct struct {
   InstanceName      string                        `json:"instance__name"`
   PageType          PageTypeStruct  `json:"pageType"`
@@ -9,6 +14,7 @@ type AppSettingsStruct struct {
   Footer ComponentStruct `json:"footer"`
   PoweredBy bool `json:"poweredBy"`
   Fab ComponentStruct `json:"fab"`
+  HeaderScript *template.HTML `json:"headerScript"`
   CookieManagement ComponentStruct `json:"cookieManagement"`
 
   BodyMaxWidth int `json:"bodyMaxWidth"`
