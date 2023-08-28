@@ -35,6 +35,10 @@ func (this *Signer) GetSignature(method string, url_to_sign string, body []byte)
 
   qs, _ := url.ParseQuery(query)
 
+  for q, _ := range(qs) {
+    qs.Set(q, url.QueryEscape(qs.Get(q)))
+  }
+
   qs.Add("s-key", publicKey)
   qs.Add("s-time", fmt.Sprintf("%d", time.Now().Unix()))
   qs.Add("s-hash", this.GetMD5Hash(body))
