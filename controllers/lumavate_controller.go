@@ -123,7 +123,6 @@ func (this *LumavateController) LumavateGetData() models.WidgetData {
 			response.Payload.Data.TokenData = this.ParseToken()
 			return response
 		case "401":
-			fmt.Println("401 no auth redirect")
 			this.NoAuthRedirect()
 		default:
 			this.Abort(status)
@@ -151,7 +150,6 @@ func (this *LumavateController) GetSelfUrl() string {
 }
 
 func (this *LumavateController) GetNoAuthRedirectUrl() string {
-	fmt.Println("redirecting")
   return fmt.Sprintf("%s%s?u=%s",
     os.Getenv("PROTO"),
     this.Ctx.Input.Host(),
@@ -184,15 +182,11 @@ func (this *LumavateController) GetWidgetDataUrl() string {
 // if it doesn't exist their then fallback to cookie
 func (this *LumavateController) GetRequest() api_core.LumavateRequest {
   auth_header := this.Ctx.Input.Header("Authorization")
-	fmt.Println("\nauth header\n")
-	fmt.Printf("\n%+v\n", auth_header) //with type
 
   if len(auth_header) > 0 && strings.HasPrefix(auth_header, "Bearer ") {
     return api_core.LumavateRequest{strings.TrimPrefix(auth_header, "Bearer "), this.Ctx.Input.Host()}
   }
 
-	fmt.Println("pwa_jwt")
-	fmt.Printf("\n%+v\n", this.Ctx.GetCookie("pwa_jwt") )//with type
   return api_core.LumavateRequest{this.Ctx.GetCookie("pwa_jwt"), this.Ctx.Input.Host()}
 }
 
@@ -202,7 +196,6 @@ func (this *LumavateController) MustHaveValidSingleUseToken() {
     this.Abort("403")
   }
 
-  fmt.Println("HOST: " + this.Ctx.Input.Host())
   lr := api_core.LumavateRequest{this.Ctx.GetCookie("pwa_jwt"), this.Ctx.Input.Host()}
   _, status := lr.Get(fmt.Sprintf("/pwa/v1/single-use-token/%v", token), false)
   if status == "400" {
