@@ -90,6 +90,9 @@ func (this *LumavateController) ParseToken() models.TokenDataStruct {
     token := this.Ctx.GetCookie("pwa_jwt")
 		if token == "" {
 			token = this.Ctx.Input.Header("Authorization")
+			if strings.HasPrefix(token, "Bearer "){
+				token = strings.Replace(token, "Bearer ", "", -1)
+			}
 		}
     token = strings.Split(token, ".")[1]
 
@@ -114,15 +117,15 @@ func (this *LumavateController) LumavateGetData() models.WidgetData {
   this.LumavateInit()
   data, status := this.LumavateGet(this.GetWidgetDataUrl())
   switch status {
-  case "200":
-    response := models.WidgetData {}
-    json.Unmarshal(data, &response)
-    response.Payload.Data.TokenData = this.ParseToken()
-    return response
-  case "401":
-    this.NoAuthRedirect()
-  default:
-    this.Abort(status)
+		case "200":
+			response := models.WidgetData {}
+			json.Unmarshal(data, &response)
+			response.Payload.Data.TokenData = this.ParseToken()
+			return response
+		case "401":
+			this.NoAuthRedirect()
+		default:
+			this.Abort(status)
   }
   return models.WidgetData {}
 }
@@ -193,26 +196,11 @@ func (this *LumavateController) MustHaveValidSingleUseToken() {
     this.Abort("403")
   }
 
-  fmt.Println("HOST: " + this.Ctx.Input.Host())
   lr := api_core.LumavateRequest{this.Ctx.GetCookie("pwa_jwt"), this.Ctx.Input.Host()}
   _, status := lr.Get(fmt.Sprintf("/pwa/v1/single-use-token/%v", token), false)
   if status == "400" {
     this.Data["json"] = map[string]interface{}{"errorCode": 403, "error": "Invalid Token"}
     this.Abort("403")
-  }
-}
-
-
-/* V2 functionality below.*/
-func (this *LumavateController) LoadAllComponentSets() {
-  body, _ := this.LumavateGet("/pwa/v1/component-sets")
-  cs := ComponentSetRequest{}
-  json.Unmarshal(body, &cs)
-
-  for _, set := range cs.Payload.Data {
-    for _, component := range set.CurrentVersion.Components {
-      this.Components = append(this.Components, component)
-    }
   }
 }
 
@@ -274,14 +262,30 @@ func (this *LumavateController) InitBranding(instanceData *models.AppSettingsStr
 }
 
 func (this *LumavateController) InitFontStyles(instanceData *models.AppSettingsStruct) [] models.FontStyleDisplayStruct {
-  styles := [] models.FontStyleDisplayStruct{
-  this.initFontStyle("h1", instanceData.H1FontStyle),
-  this.initFontStyle("h2", instanceData.H2FontStyle),
-  this.initFontStyle("h3", instanceData.H3FontStyle),
-  this.initFontStyle("h4", instanceData.H4FontStyle),
-  this.initFontStyle("paragraph", instanceData.ParagraphFontStyle),
-  this.initFontStyle("link", instanceData.LinkFontStyle),
-  this.initFontStyle("button", instanceData.ButtonFontStyle)}
+  styles := [] models.FontStyleDisplayStruct{}
+	if instanceData.H1FontStyle != nil {
+  	styles = append(styles, this.initFontStyle("h1", instanceData.H1FontStyle))
+	}
+
+	if instanceData.H2FontStyle != nil {
+  	styles = append(styles, this.initFontStyle("h2", instanceData.H2FontStyle))
+	}
+
+	if instanceData.H3FontStyle != nil {
+ 		styles = append(styles, this.initFontStyle("h3", instanceData.H3FontStyle))
+	}
+	if instanceData.H4FontStyle != nil {
+  	styles = append(styles, this.initFontStyle("h4", instanceData.H4FontStyle))
+	}
+	if instanceData.ParagraphFontStyle != nil {
+ 		styles = append(styles, this.initFontStyle("paragraph", instanceData.ParagraphFontStyle))
+	}
+	if instanceData.LinkFontStyle != nil {
+ 		styles = append(styles, this.initFontStyle("link", instanceData.LinkFontStyle))
+	}
+	if instanceData.ButtonFontStyle != nil {
+ 		styles = append(styles, this.initFontStyle("button", instanceData.ButtonFontStyle))
+	}
   return styles
 
 }
@@ -303,6 +307,7 @@ func (this *LumavateController) ContainsIonicLibrary(includes []string) bool{
 
 func (this *LumavateController) initFontStyle(key string, fontStyle *models.FontStyleStruct) models.FontStyleDisplayStruct{
   underlineValue := "none"
+
   if fontStyle.FontUnderline {
     underlineValue = "underline"
   }
